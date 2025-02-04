@@ -1,0 +1,524 @@
+[gd_scene load_steps=27 format=3 uid="uid://rbm066rfuwvx"]
+
+[ext_resource type="Script" path="res://Scripts/world.gd" id="1_miif4"]
+[ext_resource type="PackedScene" uid="uid://bun2vh5nxb52h" path="res://Tiles/tile_end_round_spawn.tscn" id="1_prnlv"]
+[ext_resource type="PackedScene" uid="uid://lcrexsw840b4" path="res://Tiles/tile_straight.tscn" id="2_whc4j"]
+[ext_resource type="PackedScene" uid="uid://dqty1h8jjfx3b" path="res://Tiles/tile_corner_square.tscn" id="3_8yvlm"]
+[ext_resource type="PackedScene" uid="uid://j2gv0od83b58" path="res://Tiles/tile_end.tscn" id="4_ska0g"]
+[ext_resource type="PackedScene" uid="uid://u6562chd5ef0" path="res://Tiles/tile_grass.tscn" id="5_cgmen"]
+[ext_resource type="ArrayMesh" uid="uid://davdnwjaq4bn3" path="res://Models/woodStructure.obj" id="8_8govi"]
+[ext_resource type="PackedScene" uid="uid://d1cenqdiajigi" path="res://Scenes/health_bar_3d.tscn" id="8_ksi3c"]
+[ext_resource type="Material" uid="uid://c8hvl4boffvue" path="res://Materials/red.tres" id="9_nkvfe"]
+[ext_resource type="Texture2D" uid="uid://bfnlukshbcrhx" path="res://Textures/weapon_cannon_S.png" id="9_xuty0"]
+[ext_resource type="ArrayMesh" uid="uid://dtamd2p1p6mxg" path="res://Models/towerRound_sampleF.obj" id="10_gc1qq"]
+[ext_resource type="Texture2D" uid="uid://dn0daligm56t" path="res://Textures/weapon_blaster_S.png" id="12_s3dic"]
+[ext_resource type="PackedScene" uid="uid://d15civcg127cm" path="res://Scenes/PolyphonicAudioPlayer.tscn" id="13_swprv"]
+[ext_resource type="Script" path="res://Scripts/Classes/AudioLibrary.gd" id="14_k7ffn"]
+[ext_resource type="Script" path="res://Scripts/Classes/SoundEffect.gd" id="15_qgxwn"]
+[ext_resource type="AudioStream" uid="uid://cgusbwaepet0e" path="res://Sounds/sinister.wav" id="16_7gvm7"]
+
+[sub_resource type="Curve3D" id="Curve3D_a1o24"]
+_data = {
+"points": PackedVector3Array(0, 0, 0, 0, 0, 0, 0.5, 0.2, 0.4, 0, 0, 0, 0, 0, 0, 0.5, 0.2, -2.5, 0, 0, 0, 0, 0, 0, 4.5, 0.2, -2.5, 0, 0, 0, 0, 0, 0, 4.5, 0.2, -6.5, 0, 0, 0, 0, 0, 0, 0.5, 0.2, -6.5, 0, 0, 0, 0, 0, 0, 0.5, 0.2, -9.5),
+"tilts": PackedFloat32Array(0, 0, 0, 0, 0, 0)
+}
+point_count = 6
+
+[sub_resource type="Environment" id="Environment_mq5lk"]
+background_mode = 1
+background_color = Color(0.292617, 0.456442, 0.894573, 1)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_whbhw"]
+content_margin_left = 10.0
+content_margin_top = 10.0
+content_margin_right = 75.0
+content_margin_bottom = 10.0
+bg_color = Color(1.15514e-05, 0.695115, 0.980223, 1)
+border_width_left = 3
+border_width_top = 3
+border_width_right = 3
+border_width_bottom = 3
+border_color = Color(1, 1, 1, 1)
+border_blend = true
+corner_radius_top_left = 2
+corner_radius_top_right = 2
+corner_radius_bottom_right = 2
+corner_radius_bottom_left = 2
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_fcxp4"]
+content_margin_left = 10.0
+content_margin_top = 10.0
+content_margin_right = 75.0
+content_margin_bottom = 10.0
+bg_color = Color(0, 0.419608, 0.6, 1)
+border_width_left = 3
+border_width_top = 3
+border_width_right = 3
+border_width_bottom = 3
+border_color = Color(1, 1, 1, 1)
+border_blend = true
+corner_radius_top_left = 2
+corner_radius_top_right = 2
+corner_radius_bottom_right = 2
+corner_radius_bottom_left = 2
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_2b4de"]
+content_margin_left = 10.0
+content_margin_top = 10.0
+content_margin_right = 10.0
+content_margin_bottom = 10.0
+bg_color = Color(1.15514e-05, 0.695115, 0.980223, 1)
+border_width_left = 3
+border_width_top = 3
+border_width_right = 3
+border_width_bottom = 3
+border_color = Color(1, 1, 1, 1)
+border_blend = true
+corner_radius_top_left = 2
+corner_radius_top_right = 2
+corner_radius_bottom_right = 2
+corner_radius_bottom_left = 2
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_frkrk"]
+content_margin_left = 10.0
+content_margin_top = 10.0
+content_margin_right = 10.0
+content_margin_bottom = 10.0
+bg_color = Color(0, 0.419608, 0.6, 1)
+border_width_left = 3
+border_width_top = 3
+border_width_right = 3
+border_width_bottom = 3
+border_color = Color(1, 1, 1, 1)
+border_blend = true
+corner_radius_top_left = 2
+corner_radius_top_right = 2
+corner_radius_bottom_right = 2
+corner_radius_bottom_left = 2
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_gpb2r"]
+content_margin_left = 10.0
+content_margin_top = 10.0
+content_margin_right = 10.0
+content_margin_bottom = 10.0
+bg_color = Color(0, 0.419608, 0.6, 1)
+border_width_left = 3
+border_width_top = 3
+border_width_right = 3
+border_width_bottom = 3
+border_color = Color(1, 1, 1, 1)
+border_blend = true
+corner_radius_top_left = 2
+corner_radius_top_right = 2
+corner_radius_bottom_right = 2
+corner_radius_bottom_left = 2
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_siojs"]
+bg_color = Color(0.254902, 0.388235, 0.87451, 1)
+
+[sub_resource type="Resource" id="Resource_dt3kp"]
+script = ExtResource("15_qgxwn")
+tag = "sinister"
+stream = ExtResource("16_7gvm7")
+
+[sub_resource type="Resource" id="Resource_wi7qh"]
+script = ExtResource("14_k7ffn")
+sound_effects = Array[ExtResource("15_qgxwn")]([SubResource("Resource_dt3kp")])
+
+[node name="World" type="Node3D" groups=["Path"]]
+script = ExtResource("1_miif4")
+
+[node name="Map" type="Node3D" parent="."]
+
+[node name="Tile_End_Round_Spawn" parent="Map" instance=ExtResource("1_prnlv")]
+transform = Transform3D(-1, 0, 8.74228e-08, 0, 1, 0, -8.74228e-08, 0, -1, 0.5, 0, 0.5)
+
+[node name="Tile_Straight" parent="Map" instance=ExtResource("2_whc4j")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.5, 0, -0.5)
+
+[node name="Tile_Straight2" parent="Map" instance=ExtResource("2_whc4j")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.5, 0, -1.5)
+
+[node name="Tile_Corner_Square" parent="Map" instance=ExtResource("3_8yvlm")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.5, 0, -2.5)
+
+[node name="Tile_Straight3" parent="Map" instance=ExtResource("2_whc4j")]
+transform = Transform3D(-4.37114e-08, 0, -1, 0, 1, 0, 1, 0, -4.37114e-08, 1.5, 0, -2.5)
+
+[node name="Tile_Straight4" parent="Map" instance=ExtResource("2_whc4j")]
+transform = Transform3D(-4.37114e-08, 0, -1, 0, 1, 0, 1, 0, -4.37114e-08, 2.5, 0, -2.5)
+
+[node name="Tile_Straight5" parent="Map" instance=ExtResource("2_whc4j")]
+transform = Transform3D(-4.37114e-08, 0, -1, 0, 1, 0, 1, 0, -4.37114e-08, 3.5, 0, -2.5)
+
+[node name="Tile_Corner_Square2" parent="Map" instance=ExtResource("3_8yvlm")]
+transform = Transform3D(-1, 0, -8.74228e-08, 0, 1, 0, 8.74228e-08, 0, -1, 4.5, 0, -2.5)
+
+[node name="Tile_Straight6" parent="Map" instance=ExtResource("2_whc4j")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 4.5, 0, -3.5)
+
+[node name="Tile_Straight7" parent="Map" instance=ExtResource("2_whc4j")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 4.5, 0, -4.5)
+
+[node name="Tile_Straight8" parent="Map" instance=ExtResource("2_whc4j")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 4.5, 0, -5.5)
+
+[node name="Tile_Corner_Square3" parent="Map" instance=ExtResource("3_8yvlm")]
+transform = Transform3D(-4.37114e-08, 0, -1, 0, 1, 0, 1, 0, -4.37114e-08, 4.5, 0, -6.5)
+
+[node name="Tile_Straight9" parent="Map" instance=ExtResource("2_whc4j")]
+transform = Transform3D(-4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, 3.5, 0, -6.5)
+
+[node name="Tile_Straight10" parent="Map" instance=ExtResource("2_whc4j")]
+transform = Transform3D(-4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, 2.5, 0, -6.5)
+
+[node name="Tile_Straight11" parent="Map" instance=ExtResource("2_whc4j")]
+transform = Transform3D(-4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, 1.5, 0, -6.5)
+
+[node name="Tile_Corner_Square4" parent="Map" instance=ExtResource("3_8yvlm")]
+transform = Transform3D(-4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, 0.5, 0, -6.5)
+
+[node name="Tile_Straight12" parent="Map" instance=ExtResource("2_whc4j")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.5, 0, -7.5)
+
+[node name="Tile_Straight13" parent="Map" instance=ExtResource("2_whc4j")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.5, 0, -8.5)
+
+[node name="Tile_End" parent="Map" instance=ExtResource("4_ska0g")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.5, 0, -9.5)
+
+[node name="Tile_Grass" parent="Map" instance=ExtResource("5_cgmen")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.5, 0, 0.5)
+
+[node name="Tile_Grass2" parent="Map" instance=ExtResource("5_cgmen")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.5, 0, -0.5)
+
+[node name="Tile_Grass3" parent="Map" instance=ExtResource("5_cgmen")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.5, 0, -1.5)
+
+[node name="Tile_Grass4" parent="Map" instance=ExtResource("5_cgmen")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2.5, 0, -1.5)
+
+[node name="Tile_Grass5" parent="Map" instance=ExtResource("5_cgmen")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 3.5, 0, -1.5)
+
+[node name="Tile_Grass6" parent="Map" instance=ExtResource("5_cgmen")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 4.5, 0, -1.5)
+
+[node name="Tile_Grass7" parent="Map" instance=ExtResource("5_cgmen")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 5.5, 0, -1.5)
+
+[node name="Tile_Grass8" parent="Map" instance=ExtResource("5_cgmen")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 5.5, 0, -2.5)
+
+[node name="Tile_Grass9" parent="Map" instance=ExtResource("5_cgmen")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 5.5, 0, -3.5)
+
+[node name="Tile_Grass10" parent="Map" instance=ExtResource("5_cgmen")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 5.5, 0, -4.5)
+
+[node name="Tile_Grass11" parent="Map" instance=ExtResource("5_cgmen")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 5.5, 0, -5.5)
+
+[node name="Tile_Grass12" parent="Map" instance=ExtResource("5_cgmen")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 5.5, 0, -6.5)
+
+[node name="Tile_Grass13" parent="Map" instance=ExtResource("5_cgmen")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 5.5, 0, -7.5)
+
+[node name="Tile_Grass14" parent="Map" instance=ExtResource("5_cgmen")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 4.5, 0, -7.5)
+
+[node name="Tile_Grass15" parent="Map" instance=ExtResource("5_cgmen")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 3.5, 0, -7.5)
+
+[node name="Tile_Grass16" parent="Map" instance=ExtResource("5_cgmen")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2.5, 0, -7.5)
+
+[node name="Tile_Grass17" parent="Map" instance=ExtResource("5_cgmen")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.5, 0, -7.5)
+
+[node name="Tile_Grass18" parent="Map" instance=ExtResource("5_cgmen")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.5, 0, -8.5)
+
+[node name="Tile_Grass19" parent="Map" instance=ExtResource("5_cgmen")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.5, 0, -9.5)
+
+[node name="Tile_Grass20" parent="Map" instance=ExtResource("5_cgmen")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.5, 0, -10.5)
+
+[node name="Tile_Grass21" parent="Map" instance=ExtResource("5_cgmen")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.5, 0, -10.5)
+
+[node name="Tile_Grass22" parent="Map" instance=ExtResource("5_cgmen")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.5, 0, -10.5)
+
+[node name="Tile_Grass23" parent="Map" instance=ExtResource("5_cgmen")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.5, 0, -9.5)
+
+[node name="Tile_Grass24" parent="Map" instance=ExtResource("5_cgmen")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.5, 0, -8.5)
+
+[node name="Tile_Grass25" parent="Map" instance=ExtResource("5_cgmen")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.5, 0, -7.5)
+
+[node name="Tile_Grass26" parent="Map" instance=ExtResource("5_cgmen")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.5, 0, -6.5)
+
+[node name="Tile_Grass27" parent="Map" instance=ExtResource("5_cgmen")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.5, 0, -5.5)
+
+[node name="Tile_Grass28" parent="Map" instance=ExtResource("5_cgmen")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.5, 0, -5.5)
+
+[node name="Tile_Grass29" parent="Map" instance=ExtResource("5_cgmen")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.5, 0, -5.5)
+
+[node name="Tile_Grass30" parent="Map" instance=ExtResource("5_cgmen")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2.5, 0, -5.5)
+
+[node name="Tile_Grass31" parent="Map" instance=ExtResource("5_cgmen")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 3.5, 0, -5.5)
+
+[node name="Tile_Grass32" parent="Map" instance=ExtResource("5_cgmen")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 3.5, 0, -4.5)
+
+[node name="Tile_Grass33" parent="Map" instance=ExtResource("5_cgmen")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 3.5, 0, -3.5)
+
+[node name="Tile_Grass34" parent="Map" instance=ExtResource("5_cgmen")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2.5, 0, -3.5)
+
+[node name="Tile_Grass35" parent="Map" instance=ExtResource("5_cgmen")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.5, 0, -3.5)
+
+[node name="Tile_Grass36" parent="Map" instance=ExtResource("5_cgmen")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.5, 0, -3.5)
+
+[node name="Tile_Grass37" parent="Map" instance=ExtResource("5_cgmen")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.5, 0, -3.5)
+
+[node name="Tile_Grass42" parent="Map" instance=ExtResource("5_cgmen")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.5, 0, -4.5)
+
+[node name="Tile_Grass43" parent="Map" instance=ExtResource("5_cgmen")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.5, 0, -4.5)
+
+[node name="Tile_Grass44" parent="Map" instance=ExtResource("5_cgmen")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.5, 0, -4.5)
+
+[node name="Tile_Grass45" parent="Map" instance=ExtResource("5_cgmen")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2.5, 0, -4.5)
+
+[node name="Tile_Grass38" parent="Map" instance=ExtResource("5_cgmen")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.5, 0, -2.5)
+
+[node name="Tile_Grass39" parent="Map" instance=ExtResource("5_cgmen")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.5, 0, -1.5)
+
+[node name="Tile_Grass40" parent="Map" instance=ExtResource("5_cgmen")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.5, 0, -0.5)
+
+[node name="Tile_Grass41" parent="Map" instance=ExtResource("5_cgmen")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.5, 0, 0.5)
+
+[node name="TowerRoundSampleF" type="MeshInstance3D" parent="Map"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.5, 0.2, -10.5)
+mesh = ExtResource("10_gc1qq")
+skeleton = NodePath("../..")
+
+[node name="HealthBar3D" parent="Map/TowerRoundSampleF" instance=ExtResource("8_ksi3c")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.55351, 0)
+
+[node name="Path" type="Path3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.00146699, 0.00381732, -0.00100827)
+curve = SubResource("Curve3D_a1o24")
+
+[node name="SpawnTimer" type="Timer" parent="."]
+
+[node name="Camera3D" type="Camera3D" parent="."]
+transform = Transform3D(-4.32096e-08, -0.915733, 0.401788, 6.60428e-09, 0.401788, 0.915733, -1, 4.2222e-08, -1.13133e-08, 4.87997, 6.3618, -4.60148)
+
+[node name="DirectionalLight3D" type="DirectionalLight3D" parent="."]
+transform = Transform3D(0.459191, -0.526666, 0.715379, -0.15839, 0.743857, 0.649299, -0.874103, -0.411461, 0.258154, 0, 3.76746, 0)
+light_color = Color(0.940152, 0.645923, 0.88193, 1)
+shadow_enabled = true
+
+[node name="WorldEnvironment" type="WorldEnvironment" parent="."]
+environment = SubResource("Environment_mq5lk")
+
+[node name="BuildIndicator" type="MeshInstance3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 4.5, 0.2, -4.5)
+visible = false
+mesh = ExtResource("8_8govi")
+surface_material_override/0 = ExtResource("9_nkvfe")
+
+[node name="CanvasLayer" type="CanvasLayer" parent="."]
+
+[node name="UI" type="Control" parent="CanvasLayer"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="ShopPanel" type="Panel" parent="CanvasLayer/UI"]
+visible = false
+custom_minimum_size = Vector2(300, 0)
+layout_mode = 1
+anchors_preset = 11
+anchor_left = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 0
+grow_vertical = 2
+
+[node name="VBoxContainer" type="VBoxContainer" parent="CanvasLayer/UI/ShopPanel"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="CannonButton" type="Button" parent="CanvasLayer/UI/ShopPanel/VBoxContainer"]
+custom_minimum_size = Vector2(0, 100)
+layout_mode = 2
+focus_mode = 0
+theme_override_styles/hover = SubResource("StyleBoxFlat_whbhw")
+theme_override_styles/pressed = SubResource("StyleBoxFlat_fcxp4")
+theme_override_styles/normal = SubResource("StyleBoxFlat_fcxp4")
+text = "250 Gold"
+icon = ExtResource("9_xuty0")
+expand_icon = true
+
+[node name="BlasterButton" type="Button" parent="CanvasLayer/UI/ShopPanel/VBoxContainer"]
+custom_minimum_size = Vector2(0, 100)
+layout_mode = 2
+focus_mode = 0
+theme_override_styles/hover = SubResource("StyleBoxFlat_whbhw")
+theme_override_styles/pressed = SubResource("StyleBoxFlat_fcxp4")
+theme_override_styles/normal = SubResource("StyleBoxFlat_fcxp4")
+text = "300 Gold"
+icon = ExtResource("12_s3dic")
+expand_icon = true
+
+[node name="Panel" type="Panel" parent="CanvasLayer/UI/ShopPanel/VBoxContainer"]
+modulate = Color(1, 1, 1, 0)
+layout_mode = 2
+size_flags_vertical = 3
+
+[node name="CancelButton" type="Button" parent="CanvasLayer/UI/ShopPanel/VBoxContainer"]
+custom_minimum_size = Vector2(0, 100)
+layout_mode = 2
+focus_mode = 0
+theme_override_styles/hover = SubResource("StyleBoxFlat_2b4de")
+theme_override_styles/pressed = SubResource("StyleBoxFlat_frkrk")
+theme_override_styles/normal = SubResource("StyleBoxFlat_gpb2r")
+text = "Cancel"
+
+[node name="NextWave" type="Button" parent="CanvasLayer/UI"]
+visible = false
+custom_minimum_size = Vector2(200, 50)
+layout_mode = 1
+anchors_preset = 2
+anchor_top = 1.0
+anchor_bottom = 1.0
+offset_left = 15.0
+offset_top = -63.0
+offset_right = 215.0
+offset_bottom = -13.0
+grow_vertical = 0
+text = "Next Wave"
+
+[node name="Gold" type="Label" parent="CanvasLayer/UI"]
+layout_mode = 0
+offset_left = 15.0
+offset_top = 15.0
+offset_right = 172.0
+offset_bottom = 64.0
+theme_override_font_sizes/font_size = 35
+text = "Gold: 250"
+vertical_alignment = 1
+
+[node name="Wave" type="Label" parent="CanvasLayer/UI"]
+layout_mode = 0
+offset_left = 15.0
+offset_top = 64.0
+offset_right = 172.0
+offset_bottom = 113.0
+theme_override_font_sizes/font_size = 35
+text = "Wave: 0"
+vertical_alignment = 1
+
+[node name="BossWave" type="Label" parent="CanvasLayer/UI"]
+visible = false
+custom_minimum_size = Vector2(200, 50)
+layout_mode = 1
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -112.0
+offset_right = 112.0
+offset_bottom = 55.0
+grow_horizontal = 2
+theme_override_font_sizes/font_size = 40
+text = "BOSS WAVE"
+
+[node name="GameOverPanel" type="Panel" parent="CanvasLayer/UI"]
+visible = false
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_siojs")
+
+[node name="GameOverLabel" type="Label" parent="CanvasLayer/UI/GameOverPanel"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -43.5
+offset_top = -11.5
+offset_right = 43.5
+offset_bottom = 11.5
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_font_sizes/font_size = 50
+text = "Game Over!"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="PlayAgainButton" type="Button" parent="CanvasLayer/UI/GameOverPanel"]
+custom_minimum_size = Vector2(200, 50)
+layout_mode = 0
+offset_left = 215.0
+offset_top = 489.0
+offset_right = 415.0
+offset_bottom = 539.0
+text = "Play Again?"
+
+[node name="QuitButton" type="Button" parent="CanvasLayer/UI/GameOverPanel"]
+custom_minimum_size = Vector2(200, 50)
+layout_mode = 0
+offset_left = 719.0
+offset_top = 489.0
+offset_right = 919.0
+offset_bottom = 539.0
+text = "Quit"
+
+[node name="PolyphonicAudioPlayer" parent="." instance=ExtResource("13_swprv")]
+audio_library = SubResource("Resource_wi7qh")
+
+[connection signal="timeout" from="SpawnTimer" to="." method="_on_spawn_timer_timeout"]
+[connection signal="pressed" from="CanvasLayer/UI/ShopPanel/VBoxContainer/CannonButton" to="." method="_on_cannon_button_pressed"]
+[connection signal="pressed" from="CanvasLayer/UI/ShopPanel/VBoxContainer/BlasterButton" to="." method="_on_blaster_button_pressed"]
+[connection signal="pressed" from="CanvasLayer/UI/ShopPanel/VBoxContainer/CancelButton" to="." method="_on_cancel_button_pressed"]
+[connection signal="pressed" from="CanvasLayer/UI/NextWave" to="." method="_on_next_wave_pressed"]
+[connection signal="pressed" from="CanvasLayer/UI/GameOverPanel/PlayAgainButton" to="." method="_on_play_again_button_pressed"]
+[connection signal="pressed" from="CanvasLayer/UI/GameOverPanel/QuitButton" to="." method="_on_quit_button_pressed"]
