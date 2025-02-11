@@ -1,19 +1,24 @@
 extends Node3D
 
 @onready var enemy : PackedScene = preload("res://Mobs/ufo.tscn")
-@onready var cannon : PackedScene = preload("res://Scenes/cannon.tscn")
-@onready var blaster : PackedScene = preload("res://Scenes/blaster.tscn")
+@onready var cannon : PackedScene = preload("res://Scenes/Towers/cannon-exp.tscn")
+@onready var blaster : PackedScene = preload("res://Scenes/Towers/blaster-exp.tscn")
+@onready var sniper : PackedScene = preload("res://Scenes/Towers/sniper-exp.tscn")
 
 @onready var cam : Camera3D = $Camera3D
 @onready var indicator : MeshInstance3D = $BuildIndicator
-@onready var polyphonic_audio_player: AudioStreamPlayer2D = $PolyphonicAudioPlayer
-
+@onready var sound_effects: AudioStreamPlayer2D = $SoundEffects
+@onready var music : AudioStreamPlayer2D = $Music
 
 var enemies_to_spawn : int = 0
 var can_spawn : bool = true
 var in_build_menu : bool = false
 var wave_on_going : bool = false
 var boss_wave : bool = false
+var in_options : bool = false
+
+func _ready() -> void:
+	music.play_sound_effect_from_lib("music")
 
 func _process(delta: float) -> void:
 	handle_player_controls()
@@ -21,6 +26,9 @@ func _process(delta: float) -> void:
 	game_manager()
 	
 func handle_player_controls() -> void:
+	if Input.is_action_just_pressed("options"):
+		in_options = true
+		get_tree().paused = true
 	var space_state : PhysicsDirectSpaceState3D = get_world_3d().direct_space_state
 	var mouse_pos : Vector2 = get_viewport().get_mouse_position()
 	
@@ -83,6 +91,7 @@ func buy_tower(cost : int, scene : PackedScene) -> void:
 		var temp_tower : StaticBody3D = scene.instantiate()
 		add_child(temp_tower)
 		temp_tower.global_position = indicator.global_position
+		sound_effects.play_sound_effect_from_lib("place")
 
 func handle_ui() -> void:
 	$CanvasLayer/UI/ShopPanel.visible = in_build_menu
@@ -91,6 +100,7 @@ func handle_ui() -> void:
 	$CanvasLayer/UI/Gold.text = "Gold: " + str(Global.money)
 	$CanvasLayer/UI/Wave.text = "Wave: " + str(Global.wave)
 	$CanvasLayer/UI/BossWave.visible = boss_wave
+	$CanvasLayer/UI/OptionsPanel.visible = in_options
 
 func _on_spawn_timer_timeout() -> void:
 	can_spawn = true
@@ -103,16 +113,17 @@ func _on_cannon_button_pressed() -> void:
 
 func _on_blaster_button_pressed() -> void:
 	buy_tower(300, blaster)
-
+	
+func _on_sniper_button_pressed() -> void:
+	buy_tower(300, sniper)
 
 func _on_cancel_button_pressed() -> void:
 	in_build_menu = false
 
-
 func _on_next_wave_pressed() -> void:
-	polyphonic_audio_player.play_sound_effect_from_lib("sinister")
+	sound_effects.play_sound_effect_from_lib("sinister")
 	Global.wave += 1
-	boss_wave = Global.wave % 2 == 0
+	boss_wave = Global.wave % 5 == 0
 	if boss_wave:
 		enemies_to_spawn = 1
 	else:
@@ -128,3 +139,8 @@ func _on_play_again_button_pressed() -> void:
 
 func _on_quit_button_pressed() -> void:
 	get_tree().quit()
+
+
+func _on_close_button_pressed() -> void:
+	get_tree().paused = false
+	in_options = false

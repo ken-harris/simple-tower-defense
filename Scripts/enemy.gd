@@ -3,10 +3,12 @@ extends CharacterBody3D
 
 @export var speed : float = 2.0
 @export var health : int = 15
+@export var experience : int = 10
 
 @onready var Path : PathFollow3D = get_parent()
 @onready var polyphonic_audio_player: AudioStreamPlayer2D = $"../PolyphonicAudioPlayer"
 
+var hit_by_towers : Array[Tower] = []
 var is_alive : bool = true
 var is_boss : bool = false
 
@@ -20,12 +22,19 @@ func _physics_process(delta: float) -> void:
 		Global.health -= 20
 		death() # Delete the parent path with all children
 
-func take_damage(damage : int) -> void:
-	print("Hit for " + str(damage) + " total left: " + str(health))
+func take_damage(damage : int, from: Tower) -> void:
+	print("Hit by " + str(from) + " for " + str(damage) + " total left: " + str(health))
+	if from not in hit_by_towers:
+		hit_by_towers.append(from)
 	health -= damage
 	$HealthBar3D.update(health)
 	if health <= 0 and is_alive:
 		Global.money += 200 if is_boss else 50
+		for tower in hit_by_towers:
+			if tower == from:
+				from.update_exp(experience)
+			else:
+				tower.update_exp(roundi(experience / 2))
 		death()
 		
 func death() -> void:

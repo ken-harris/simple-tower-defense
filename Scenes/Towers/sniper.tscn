@@ -1,0 +1,51 @@
+[gd_scene load_steps=11 format=3 uid="uid://p76cbeq32oxh"]
+
+[ext_resource type="Script" path="res://Scripts/sniper.gd" id="1_pp1l0"]
+[ext_resource type="ArrayMesh" uid="uid://boyipg82lv0ck" path="res://Models/sniper.obj" id="2_swf5o"]
+[ext_resource type="PackedScene" uid="uid://d15civcg127cm" path="res://Scenes/PolyphonicAudioPlayer.tscn" id="3_7heob"]
+[ext_resource type="Script" path="res://Scripts/Classes/AudioLibrary.gd" id="4_lvwrh"]
+[ext_resource type="Script" path="res://Scripts/Classes/SoundEffect.gd" id="5_53c5e"]
+[ext_resource type="AudioStream" uid="uid://dici8f2topobt" path="res://Sounds/shoot-blaster.wav" id="6_tufc6"]
+
+[sub_resource type="Skin" id="Skin_phc4r"]
+
+[sub_resource type="SphereShape3D" id="SphereShape3D_kmctb"]
+radius = 3.0
+
+[sub_resource type="Resource" id="Resource_cg51h"]
+script = ExtResource("5_53c5e")
+tag = "shoot"
+stream = ExtResource("6_tufc6")
+
+[sub_resource type="Resource" id="Resource_7un8g"]
+script = ExtResource("4_lvwrh")
+sound_effects = Array[ExtResource("5_53c5e")]([SubResource("Resource_cg51h")])
+
+[node name="Sniper" type="StaticBody3D" groups=["Not Empty"]]
+script = ExtResource("1_pp1l0")
+bullet_damage = 12
+
+[node name="WeaponMesh" type="MeshInstance3D" parent="."]
+transform = Transform3D(-1, 0, -8.74228e-08, 0, 1, 0, 8.74228e-08, 0, -1, 0, 0, 0)
+mesh = ExtResource("2_swf5o")
+skin = SubResource("Skin_phc4r")
+
+[node name="Aim" type="Marker3D" parent="WeaponMesh"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.456103, 0.485667)
+
+[node name="MobDetector" type="Area3D" parent="."]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="MobDetector"]
+shape = SubResource("SphereShape3D_kmctb")
+
+[node name="BulletContainer" type="Node" parent="."]
+
+[node name="ShotCooldown" type="Timer" parent="."]
+wait_time = 2.0
+
+[node name="PolyphonicAudioPlayer" parent="." instance=ExtResource("3_7heob")]
+audio_library = SubResource("Resource_7un8g")
+
+[connection signal="body_entered" from="MobDetector" to="." method="_on_mob_detector_body_entered"]
+[connection signal="body_exited" from="MobDetector" to="." method="_on_mob_detector_body_exited"]
+[connection signal="timeout" from="ShotCooldown" to="." method="_on_shot_cooldown_timeout"]

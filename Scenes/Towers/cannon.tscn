@@ -1,0 +1,54 @@
+[gd_scene load_steps=11 format=3 uid="uid://bjnmia7g7vslf"]
+
+[ext_resource type="ArrayMesh" uid="uid://cmndr15pti11j" path="res://Models/weapon_cannon.obj" id="1_8m1vs"]
+[ext_resource type="Script" path="res://Scripts/cannon.gd" id="1_hwu1q"]
+[ext_resource type="PackedScene" uid="uid://d15civcg127cm" path="res://Scenes/PolyphonicAudioPlayer.tscn" id="4_4xi3e"]
+[ext_resource type="Script" path="res://Scripts/Classes/AudioLibrary.gd" id="5_kpfkn"]
+[ext_resource type="AudioStream" uid="uid://dcl6shqafc11k" path="res://Sounds/shoot-cannon.wav" id="6_5ul1g"]
+[ext_resource type="Script" path="res://Scripts/Classes/SoundEffect.gd" id="6_pdqk8"]
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_a27t1"]
+size = Vector3(1, 0.2, 1)
+
+[sub_resource type="SphereShape3D" id="SphereShape3D_ta3jt"]
+radius = 1.5
+
+[sub_resource type="Resource" id="Resource_w03lf"]
+script = ExtResource("6_pdqk8")
+tag = "shoot"
+stream = ExtResource("6_5ul1g")
+
+[sub_resource type="Resource" id="Resource_yklqd"]
+script = ExtResource("5_kpfkn")
+sound_effects = Array[ExtResource("6_pdqk8")]([SubResource("Resource_w03lf")])
+
+[node name="Cannon" type="StaticBody3D" groups=["Not Empty"]]
+script = ExtResource("1_hwu1q")
+bullet_damage = 5
+
+[node name="WeaponMesh" type="MeshInstance3D" parent="."]
+transform = Transform3D(-1, 0, -8.74228e-08, 0, 1, 0, 8.74228e-08, 0, -1, 0, 0, 0)
+mesh = ExtResource("1_8m1vs")
+
+[node name="Aim" type="Marker3D" parent="WeaponMesh"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.264, 0.3)
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.08, 0)
+shape = SubResource("BoxShape3D_a27t1")
+
+[node name="MobDetector" type="Area3D" parent="."]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="MobDetector"]
+shape = SubResource("SphereShape3D_ta3jt")
+
+[node name="BulletContainer" type="Node" parent="."]
+
+[node name="ShotCooldown" type="Timer" parent="."]
+
+[node name="PolyphonicAudioPlayer" parent="." instance=ExtResource("4_4xi3e")]
+audio_library = SubResource("Resource_yklqd")
+
+[connection signal="body_entered" from="MobDetector" to="." method="_on_mob_detector_body_entered"]
+[connection signal="body_exited" from="MobDetector" to="." method="_on_mob_detector_body_exited"]
+[connection signal="timeout" from="ShotCooldown" to="." method="_on_shot_cooldown_timeout"]

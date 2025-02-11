@@ -1,4 +1,4 @@
-[gd_scene load_steps=27 format=3 uid="uid://rbm066rfuwvx"]
+[gd_scene load_steps=33 format=3 uid="uid://rbm066rfuwvx"]
 
 [ext_resource type="Script" path="res://Scripts/world.gd" id="1_miif4"]
 [ext_resource type="PackedScene" uid="uid://bun2vh5nxb52h" path="res://Tiles/tile_end_round_spawn.tscn" id="1_prnlv"]
@@ -12,10 +12,13 @@
 [ext_resource type="Texture2D" uid="uid://bfnlukshbcrhx" path="res://Textures/weapon_cannon_S.png" id="9_xuty0"]
 [ext_resource type="ArrayMesh" uid="uid://dtamd2p1p6mxg" path="res://Models/towerRound_sampleF.obj" id="10_gc1qq"]
 [ext_resource type="Texture2D" uid="uid://dn0daligm56t" path="res://Textures/weapon_blaster_S.png" id="12_s3dic"]
+[ext_resource type="Texture2D" uid="uid://djtxjgi0olff2" path="res://Textures/sniper-texture.png" id="13_o0gyi"]
 [ext_resource type="PackedScene" uid="uid://d15civcg127cm" path="res://Scenes/PolyphonicAudioPlayer.tscn" id="13_swprv"]
 [ext_resource type="Script" path="res://Scripts/Classes/AudioLibrary.gd" id="14_k7ffn"]
 [ext_resource type="Script" path="res://Scripts/Classes/SoundEffect.gd" id="15_qgxwn"]
 [ext_resource type="AudioStream" uid="uid://cgusbwaepet0e" path="res://Sounds/sinister.wav" id="16_7gvm7"]
+[ext_resource type="AudioStream" uid="uid://bh1osejdnhk3o" path="res://Sounds/place.wav" id="17_vdy68"]
+[ext_resource type="AudioStream" uid="uid://blns3vs8y4ctb" path="res://Sounds/background-music.wav" id="17_ywxgo"]
 
 [sub_resource type="Curve3D" id="Curve3D_a1o24"]
 _data = {
@@ -121,9 +124,23 @@ script = ExtResource("15_qgxwn")
 tag = "sinister"
 stream = ExtResource("16_7gvm7")
 
+[sub_resource type="Resource" id="Resource_bb35x"]
+script = ExtResource("15_qgxwn")
+tag = "place"
+stream = ExtResource("17_vdy68")
+
 [sub_resource type="Resource" id="Resource_wi7qh"]
 script = ExtResource("14_k7ffn")
-sound_effects = Array[ExtResource("15_qgxwn")]([SubResource("Resource_dt3kp")])
+sound_effects = Array[ExtResource("15_qgxwn")]([SubResource("Resource_dt3kp"), SubResource("Resource_bb35x")])
+
+[sub_resource type="Resource" id="Resource_8lkrv"]
+script = ExtResource("15_qgxwn")
+tag = "music"
+stream = ExtResource("17_ywxgo")
+
+[sub_resource type="Resource" id="Resource_8p37c"]
+script = ExtResource("14_k7ffn")
+sound_effects = Array[ExtResource("15_qgxwn")]([SubResource("Resource_8lkrv")])
 
 [node name="World" type="Node3D" groups=["Path"]]
 script = ExtResource("1_miif4")
@@ -364,7 +381,6 @@ grow_horizontal = 2
 grow_vertical = 2
 
 [node name="ShopPanel" type="Panel" parent="CanvasLayer/UI"]
-visible = false
 custom_minimum_size = Vector2(300, 0)
 layout_mode = 1
 anchors_preset = 11
@@ -402,6 +418,17 @@ theme_override_styles/pressed = SubResource("StyleBoxFlat_fcxp4")
 theme_override_styles/normal = SubResource("StyleBoxFlat_fcxp4")
 text = "300 Gold"
 icon = ExtResource("12_s3dic")
+expand_icon = true
+
+[node name="SniperButton" type="Button" parent="CanvasLayer/UI/ShopPanel/VBoxContainer"]
+custom_minimum_size = Vector2(0, 100)
+layout_mode = 2
+focus_mode = 0
+theme_override_styles/hover = SubResource("StyleBoxFlat_whbhw")
+theme_override_styles/pressed = SubResource("StyleBoxFlat_fcxp4")
+theme_override_styles/normal = SubResource("StyleBoxFlat_fcxp4")
+text = "300 Gold"
+icon = ExtResource("13_o0gyi")
 expand_icon = true
 
 [node name="Panel" type="Panel" parent="CanvasLayer/UI/ShopPanel/VBoxContainer"]
@@ -512,13 +539,43 @@ offset_right = 919.0
 offset_bottom = 539.0
 text = "Quit"
 
-[node name="PolyphonicAudioPlayer" parent="." instance=ExtResource("13_swprv")]
+[node name="OptionsPanel" type="Panel" parent="CanvasLayer/UI"]
+process_mode = 2
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="CloseButton" type="Button" parent="CanvasLayer/UI/OptionsPanel"]
+custom_minimum_size = Vector2(200, 40)
+layout_mode = 1
+anchors_preset = 7
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+offset_left = -100.0
+offset_top = -48.0
+offset_right = 100.0
+offset_bottom = -8.0
+grow_horizontal = 2
+grow_vertical = 0
+text = "Save and Close"
+
+[node name="SoundEffects" parent="." instance=ExtResource("13_swprv")]
 audio_library = SubResource("Resource_wi7qh")
+
+[node name="Music" parent="." instance=ExtResource("13_swprv")]
+audio_library = SubResource("Resource_8p37c")
 
 [connection signal="timeout" from="SpawnTimer" to="." method="_on_spawn_timer_timeout"]
 [connection signal="pressed" from="CanvasLayer/UI/ShopPanel/VBoxContainer/CannonButton" to="." method="_on_cannon_button_pressed"]
 [connection signal="pressed" from="CanvasLayer/UI/ShopPanel/VBoxContainer/BlasterButton" to="." method="_on_blaster_button_pressed"]
+[connection signal="pressed" from="CanvasLayer/UI/ShopPanel/VBoxContainer/SniperButton" to="." method="_on_sniper_button_pressed"]
 [connection signal="pressed" from="CanvasLayer/UI/ShopPanel/VBoxContainer/CancelButton" to="." method="_on_cancel_button_pressed"]
 [connection signal="pressed" from="CanvasLayer/UI/NextWave" to="." method="_on_next_wave_pressed"]
 [connection signal="pressed" from="CanvasLayer/UI/GameOverPanel/PlayAgainButton" to="." method="_on_play_again_button_pressed"]
 [connection signal="pressed" from="CanvasLayer/UI/GameOverPanel/QuitButton" to="." method="_on_quit_button_pressed"]
+[connection signal="pressed" from="CanvasLayer/UI/OptionsPanel/CloseButton" to="." method="_on_close_button_pressed"]

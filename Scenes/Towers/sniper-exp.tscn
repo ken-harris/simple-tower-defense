@@ -1,0 +1,13 @@
+[gd_scene load_steps=4 format=3 uid="uid://ccia8ccnp5qkh"]
+
+[ext_resource type="Script" path="res://Scripts/tower_exp.gd" id="1_8oq08"]
+[ext_resource type="PackedScene" uid="uid://p76cbeq32oxh" path="res://Scenes/Towers/sniper.tscn" id="2_if2dx"]
+[ext_resource type="PackedScene" uid="uid://cod885v35blai" path="res://Scenes/exp_bar_3d.tscn" id="3_03wo1"]
+
+[node name="SniperExp" type="StaticBody3D"]
+script = ExtResource("1_8oq08")
+
+[node name="Sniper" parent="." instance=ExtResource("2_if2dx")]
+
+[node name="ExpBar3D" parent="." instance=ExtResource("3_03wo1")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.275459, 0.2, -0.15)

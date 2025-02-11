@@ -1,0 +1,13 @@
+[gd_scene load_steps=4 format=3 uid="uid://dwwwhvpltuwp1"]
+
+[ext_resource type="Script" path="res://Scripts/tower_exp.gd" id="1_audpi"]
+[ext_resource type="PackedScene" uid="uid://bxf0imynqvdb8" path="res://Scenes/Towers/blaster.tscn" id="1_qo7vc"]
+[ext_resource type="PackedScene" uid="uid://cod885v35blai" path="res://Scenes/exp_bar_3d.tscn" id="2_70whq"]
+
+[node name="BlasterExp" type="StaticBody3D"]
+script = ExtResource("1_audpi")
+
+[node name="Blaster" parent="." instance=ExtResource("1_qo7vc")]
+
+[node name="ExpBar3D" parent="." instance=ExtResource("2_70whq")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.275459, 0.2, -0.15)

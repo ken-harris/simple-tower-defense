@@ -1,0 +1,35 @@
+[gd_scene load_steps=3 format=3 uid="uid://25kwgir5jsak"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_mug2p"]
+bg_color = Color(1, 1, 1, 1)
+border_width_left = 25
+border_width_top = 1
+border_width_right = 1
+border_width_bottom = 1
+border_color = Color(1, 1, 1, 1)
+border_blend = true
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_g6iru"]
+bg_color = Color(0.0509804, 0.458824, 0.733333, 1)
+border_width_left = 10
+border_width_top = 2
+border_width_right = 2
+border_width_bottom = 2
+border_color = Color(1, 1, 1, 1)
+
+[node name="ExperiencePoints" type="ProgressBar"]
+custom_minimum_size = Vector2(125, 13)
+theme_override_styles/background = SubResource("StyleBoxFlat_mug2p")
+theme_override_styles/fill = SubResource("StyleBoxFlat_g6iru")
+value = 50.0
+show_percentage = false
+
+[node name="Level" type="Label" parent="."]
+layout_mode = 0
+offset_left = 2.0
+offset_top = -2.0
+offset_right = 17.0
+offset_bottom = 12.0
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+theme_override_font_sizes/font_size = 12
+text = "1"

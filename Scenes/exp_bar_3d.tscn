@@ -1,0 +1,13 @@
+[gd_scene load_steps=3 format=3 uid="uid://cod885v35blai"]
+
+[ext_resource type="Script" path="res://Scripts/exp_bar_3d.gd" id="1_edi83"]
+[ext_resource type="PackedScene" uid="uid://25kwgir5jsak" path="res://Scenes/experience_points.tscn" id="2_u1kf5"]
+
+[node name="ExpBar3D" type="Sprite3D"]
+billboard = 1
+script = ExtResource("1_edi83")
+
+[node name="SubViewport" type="SubViewport" parent="."]
+size = Vector2i(125, 13)
+
+[node name="ExperiencePoints" parent="SubViewport" instance=ExtResource("2_u1kf5")]
