@@ -8,6 +8,6 @@ billboard = 1
 script = ExtResource("1_edi83")
 
 [node name="SubViewport" type="SubViewport" parent="."]
-size = Vector2i(125, 13)
+size = Vector2i(80, 13)
 
 [node name="ExperiencePoints" parent="SubViewport" instance=ExtResource("2_u1kf5")]

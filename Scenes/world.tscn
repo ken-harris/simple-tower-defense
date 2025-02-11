@@ -354,7 +354,7 @@ curve = SubResource("Curve3D_a1o24")
 [node name="SpawnTimer" type="Timer" parent="."]
 
 [node name="Camera3D" type="Camera3D" parent="."]
-transform = Transform3D(-4.32096e-08, -0.915733, 0.401788, 6.60428e-09, 0.401788, 0.915733, -1, 4.2222e-08, -1.13133e-08, 4.87997, 6.3618, -4.60148)
+transform = Transform3D(-5.87635e-08, -0.915733, 0.401788, 6.60428e-09, 0.401788, 0.915733, -1, 5.64652e-08, -1.75627e-08, 4.87997, 6.3618, -4.60148)
 
 [node name="DirectionalLight3D" type="DirectionalLight3D" parent="."]
 transform = Transform3D(0.459191, -0.526666, 0.715379, -0.15839, 0.743857, 0.649299, -0.874103, -0.411461, 0.258154, 0, 3.76746, 0)
@@ -381,6 +381,7 @@ grow_horizontal = 2
 grow_vertical = 2
 
 [node name="ShopPanel" type="Panel" parent="CanvasLayer/UI"]
+visible = false
 custom_minimum_size = Vector2(300, 0)
 layout_mode = 1
 anchors_preset = 11
@@ -460,6 +461,7 @@ grow_vertical = 0
 text = "Next Wave"
 
 [node name="Gold" type="Label" parent="CanvasLayer/UI"]
+visible = false
 layout_mode = 0
 offset_left = 15.0
 offset_top = 15.0
@@ -470,6 +472,7 @@ text = "Gold: 250"
 vertical_alignment = 1
 
 [node name="Wave" type="Label" parent="CanvasLayer/UI"]
+visible = false
 layout_mode = 0
 offset_left = 15.0
 offset_top = 64.0
@@ -548,21 +551,30 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 
-[node name="CloseButton" type="Button" parent="CanvasLayer/UI/OptionsPanel"]
-custom_minimum_size = Vector2(200, 40)
+[node name="VBoxContainer" type="VBoxContainer" parent="CanvasLayer/UI/OptionsPanel"]
 layout_mode = 1
-anchors_preset = 7
+anchors_preset = 13
 anchor_left = 0.5
-anchor_top = 1.0
 anchor_right = 0.5
 anchor_bottom = 1.0
-offset_left = -100.0
-offset_top = -48.0
-offset_right = 100.0
-offset_bottom = -8.0
 grow_horizontal = 2
-grow_vertical = 0
-text = "Save and Close"
+grow_vertical = 2
+alignment = 1
+
+[node name="Return Button" type="Button" parent="CanvasLayer/UI/OptionsPanel/VBoxContainer"]
+custom_minimum_size = Vector2(200, 40)
+layout_mode = 2
+text = "Return"
+
+[node name="Quit Game" type="Button" parent="CanvasLayer/UI/OptionsPanel/VBoxContainer"]
+custom_minimum_size = Vector2(200, 40)
+layout_mode = 2
+text = "Quit Game"
+
+[node name="Exit Game" type="Button" parent="CanvasLayer/UI/OptionsPanel/VBoxContainer"]
+custom_minimum_size = Vector2(200, 40)
+layout_mode = 2
+text = "Exit Game"
 
 [node name="SoundEffects" parent="." instance=ExtResource("13_swprv")]
 audio_library = SubResource("Resource_wi7qh")
@@ -578,4 +590,6 @@ audio_library = SubResource("Resource_8p37c")
 [connection signal="pressed" from="CanvasLayer/UI/NextWave" to="." method="_on_next_wave_pressed"]
 [connection signal="pressed" from="CanvasLayer/UI/GameOverPanel/PlayAgainButton" to="." method="_on_play_again_button_pressed"]
 [connection signal="pressed" from="CanvasLayer/UI/GameOverPanel/QuitButton" to="." method="_on_quit_button_pressed"]
-[connection signal="pressed" from="CanvasLayer/UI/OptionsPanel/CloseButton" to="." method="_on_close_button_pressed"]
+[connection signal="pressed" from="CanvasLayer/UI/OptionsPanel/VBoxContainer/Return Button" to="." method="_on_return_button_pressed"]
+[connection signal="pressed" from="CanvasLayer/UI/OptionsPanel/VBoxContainer/Quit Game" to="." method="_on_quit_game_pressed"]
+[connection signal="pressed" from="CanvasLayer/UI/OptionsPanel/VBoxContainer/Exit Game" to="." method="_on_exit_game_pressed"]

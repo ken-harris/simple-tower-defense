@@ -10,3 +10,5 @@ script = ExtResource("1_oa2st")
 [node name="Cannon" parent="." instance=ExtResource("1_sjbbr")]
 
 [node name="ExpBar3D" parent="." instance=ExtResource("2_tmfgq")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.45, 0, 0.37)
+centered = false

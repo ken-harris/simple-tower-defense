@@ -18,7 +18,7 @@ border_width_bottom = 2
 border_color = Color(1, 1, 1, 1)
 
 [node name="ExperiencePoints" type="ProgressBar"]
-custom_minimum_size = Vector2(125, 13)
+custom_minimum_size = Vector2(80, 13)
 theme_override_styles/background = SubResource("StyleBoxFlat_mug2p")
 theme_override_styles/fill = SubResource("StyleBoxFlat_g6iru")
 value = 50.0

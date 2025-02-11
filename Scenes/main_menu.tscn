@@ -1,0 +1,63 @@
+[gd_scene load_steps=2 format=3 uid="uid://pr3d0gxyab1v"]
+
+[ext_resource type="Script" path="res://Scripts/main_menu.gd" id="1_rdeba"]
+
+[node name="Main" type="Control"]
+layout_mode = 3
+anchors_preset = 0
+offset_right = 40.0
+offset_bottom = 40.0
+
+[node name="Main Manu" type="Control" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_right = 1113.0
+offset_bottom = 610.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Main Menu" type="Panel" parent="Main Manu"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_rdeba")
+
+[node name="VBoxContainer" type="VBoxContainer" parent="Main Manu/Main Menu"]
+layout_mode = 1
+anchors_preset = 13
+anchor_left = 0.5
+anchor_right = 0.5
+anchor_bottom = 1.0
+offset_left = -46.5
+offset_right = 53.5
+grow_horizontal = 2
+grow_vertical = 2
+alignment = 1
+
+[node name="New Game" type="Button" parent="Main Manu/Main Menu/VBoxContainer"]
+layout_mode = 2
+text = "New Game"
+
+[node name="Continue" type="Button" parent="Main Manu/Main Menu/VBoxContainer"]
+layout_mode = 2
+disabled = true
+text = "Continue"
+
+[node name="Settings" type="Button" parent="Main Manu/Main Menu/VBoxContainer"]
+layout_mode = 2
+text = "Settings"
+
+[node name="Credits" type="Button" parent="Main Manu/Main Menu/VBoxContainer"]
+layout_mode = 2
+text = "Credits"
+
+[node name="Main3D" type="Node3D" parent="."]
+
+[connection signal="pressed" from="Main Manu/Main Menu/VBoxContainer/New Game" to="Main Manu/Main Menu" method="_on_new_game_pressed"]
+[connection signal="pressed" from="Main Manu/Main Menu/VBoxContainer/Settings" to="Main Manu/Main Menu" method="_on_settings_pressed"]
+[connection signal="pressed" from="Main Manu/Main Menu/VBoxContainer/Credits" to="Main Manu/Main Menu" method="_on_credits_pressed"]
