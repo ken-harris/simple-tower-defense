@@ -49,4 +49,5 @@ func create_boss() -> void:
 	scale += Vector3.ONE * 0.5
 	speed = 1.2
 	health = 100
+	experience += 25
 	is_boss = true

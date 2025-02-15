@@ -1,0 +1,496 @@
+[gd_scene load_steps=23 format=3 uid="uid://pr3d0gxyab1v"]
+
+[ext_resource type="Script" path="res://Scripts/main.gd" id="1_57k8d"]
+[ext_resource type="Script" path="res://Scripts/main_menu.gd" id="1_bg3xd"]
+[ext_resource type="Texture2D" uid="uid://bfnlukshbcrhx" path="res://Textures/weapon_cannon_S.png" id="2_hgamp"]
+[ext_resource type="Texture2D" uid="uid://dn0daligm56t" path="res://Textures/weapon_blaster_S.png" id="3_h1gfy"]
+[ext_resource type="Texture2D" uid="uid://djtxjgi0olff2" path="res://Textures/sniper-texture.png" id="4_rjtsb"]
+[ext_resource type="ArrayMesh" uid="uid://davdnwjaq4bn3" path="res://Models/woodStructure.obj" id="6_0aq6p"]
+[ext_resource type="FontFile" uid="uid://drrlyiuidm6t6" path="res://04B_30__.TTF" id="6_ryt6p"]
+[ext_resource type="Material" uid="uid://c8hvl4boffvue" path="res://Materials/red.tres" id="7_4362h"]
+[ext_resource type="PackedScene" uid="uid://d15civcg127cm" path="res://Scenes/PolyphonicAudioPlayer.tscn" id="8_xw4n4"]
+[ext_resource type="Script" path="res://Scripts/Classes/AudioLibrary.gd" id="9_3m77h"]
+[ext_resource type="Script" path="res://Scripts/Classes/SoundEffect.gd" id="10_yhjtd"]
+[ext_resource type="AudioStream" uid="uid://cgusbwaepet0e" path="res://Sounds/sinister.wav" id="11_xfd16"]
+[ext_resource type="AudioStream" uid="uid://bh1osejdnhk3o" path="res://Sounds/place.wav" id="12_bud75"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_siame"]
+content_margin_left = 10.0
+content_margin_top = 10.0
+content_margin_right = 75.0
+content_margin_bottom = 10.0
+bg_color = Color(1.15514e-05, 0.695115, 0.980223, 1)
+border_width_left = 3
+border_width_top = 3
+border_width_right = 3
+border_width_bottom = 3
+border_color = Color(1, 1, 1, 1)
+border_blend = true
+corner_radius_top_left = 2
+corner_radius_top_right = 2
+corner_radius_bottom_right = 2
+corner_radius_bottom_left = 2
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_lv0i8"]
+content_margin_left = 10.0
+content_margin_top = 10.0
+content_margin_right = 75.0
+content_margin_bottom = 10.0
+bg_color = Color(0, 0.419608, 0.6, 1)
+border_width_left = 3
+border_width_top = 3
+border_width_right = 3
+border_width_bottom = 3
+border_color = Color(1, 1, 1, 1)
+border_blend = true
+corner_radius_top_left = 2
+corner_radius_top_right = 2
+corner_radius_bottom_right = 2
+corner_radius_bottom_left = 2
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_kenkb"]
+content_margin_left = 10.0
+content_margin_top = 10.0
+content_margin_right = 10.0
+content_margin_bottom = 10.0
+bg_color = Color(1.15514e-05, 0.695115, 0.980223, 1)
+border_width_left = 3
+border_width_top = 3
+border_width_right = 3
+border_width_bottom = 3
+border_color = Color(1, 1, 1, 1)
+border_blend = true
+corner_radius_top_left = 2
+corner_radius_top_right = 2
+corner_radius_bottom_right = 2
+corner_radius_bottom_left = 2
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_dsc5o"]
+content_margin_left = 10.0
+content_margin_top = 10.0
+content_margin_right = 10.0
+content_margin_bottom = 10.0
+bg_color = Color(0, 0.419608, 0.6, 1)
+border_width_left = 3
+border_width_top = 3
+border_width_right = 3
+border_width_bottom = 3
+border_color = Color(1, 1, 1, 1)
+border_blend = true
+corner_radius_top_left = 2
+corner_radius_top_right = 2
+corner_radius_bottom_right = 2
+corner_radius_bottom_left = 2
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_pp5vv"]
+content_margin_left = 10.0
+content_margin_top = 10.0
+content_margin_right = 10.0
+content_margin_bottom = 10.0
+bg_color = Color(0, 0.419608, 0.6, 1)
+border_width_left = 3
+border_width_top = 3
+border_width_right = 3
+border_width_bottom = 3
+border_color = Color(1, 1, 1, 1)
+border_blend = true
+corner_radius_top_left = 2
+corner_radius_top_right = 2
+corner_radius_bottom_right = 2
+corner_radius_bottom_left = 2
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_jgrey"]
+bg_color = Color(0.254902, 0.388235, 0.87451, 1)
+
+[sub_resource type="Resource" id="Resource_dt3kp"]
+script = ExtResource("10_yhjtd")
+tag = "sinister"
+stream = ExtResource("11_xfd16")
+
+[sub_resource type="Resource" id="Resource_bb35x"]
+script = ExtResource("10_yhjtd")
+tag = "place"
+stream = ExtResource("12_bud75")
+
+[sub_resource type="Resource" id="Resource_lvqrx"]
+script = ExtResource("9_3m77h")
+sound_effects = Array[ExtResource("10_yhjtd")]([SubResource("Resource_dt3kp"), SubResource("Resource_bb35x")])
+
+[node name="Main" type="Control"]
+process_mode = 3
+layout_mode = 3
+anchors_preset = 0
+offset_right = 40.0
+offset_bottom = 40.0
+script = ExtResource("1_57k8d")
+
+[node name="CanvasLayer" type="CanvasLayer" parent="."]
+
+[node name="UI" type="Control" parent="CanvasLayer"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="ShopPanel" type="Panel" parent="CanvasLayer/UI"]
+visible = false
+custom_minimum_size = Vector2(300, 0)
+layout_mode = 1
+anchors_preset = 11
+anchor_left = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 0
+grow_vertical = 2
+
+[node name="VBoxContainer" type="VBoxContainer" parent="CanvasLayer/UI/ShopPanel"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="CannonButton" type="Button" parent="CanvasLayer/UI/ShopPanel/VBoxContainer"]
+custom_minimum_size = Vector2(0, 100)
+layout_mode = 2
+focus_mode = 0
+theme_override_styles/hover = SubResource("StyleBoxFlat_siame")
+theme_override_styles/pressed = SubResource("StyleBoxFlat_lv0i8")
+theme_override_styles/normal = SubResource("StyleBoxFlat_lv0i8")
+text = "250 Gold"
+icon = ExtResource("2_hgamp")
+expand_icon = true
+
+[node name="BlasterButton" type="Button" parent="CanvasLayer/UI/ShopPanel/VBoxContainer"]
+custom_minimum_size = Vector2(0, 100)
+layout_mode = 2
+focus_mode = 0
+theme_override_styles/hover = SubResource("StyleBoxFlat_siame")
+theme_override_styles/pressed = SubResource("StyleBoxFlat_lv0i8")
+theme_override_styles/normal = SubResource("StyleBoxFlat_lv0i8")
+text = "300 Gold"
+icon = ExtResource("3_h1gfy")
+expand_icon = true
+
+[node name="SniperButton" type="Button" parent="CanvasLayer/UI/ShopPanel/VBoxContainer"]
+custom_minimum_size = Vector2(0, 100)
+layout_mode = 2
+focus_mode = 0
+theme_override_styles/hover = SubResource("StyleBoxFlat_siame")
+theme_override_styles/pressed = SubResource("StyleBoxFlat_lv0i8")
+theme_override_styles/normal = SubResource("StyleBoxFlat_lv0i8")
+text = "300 Gold"
+icon = ExtResource("4_rjtsb")
+expand_icon = true
+
+[node name="Panel" type="Panel" parent="CanvasLayer/UI/ShopPanel/VBoxContainer"]
+modulate = Color(1, 1, 1, 0)
+layout_mode = 2
+size_flags_vertical = 3
+
+[node name="CancelButton" type="Button" parent="CanvasLayer/UI/ShopPanel/VBoxContainer"]
+custom_minimum_size = Vector2(0, 100)
+layout_mode = 2
+focus_mode = 0
+theme_override_styles/hover = SubResource("StyleBoxFlat_kenkb")
+theme_override_styles/pressed = SubResource("StyleBoxFlat_dsc5o")
+theme_override_styles/normal = SubResource("StyleBoxFlat_pp5vv")
+text = "Cancel"
+
+[node name="NextWave" type="Button" parent="CanvasLayer/UI"]
+visible = false
+custom_minimum_size = Vector2(200, 50)
+layout_mode = 1
+anchors_preset = 2
+anchor_top = 1.0
+anchor_bottom = 1.0
+offset_left = 15.0
+offset_top = -65.0
+offset_right = 215.0
+offset_bottom = -15.0
+grow_vertical = 0
+text = "Next Wave"
+
+[node name="Gold" type="Label" parent="CanvasLayer/UI"]
+visible = false
+layout_mode = 0
+offset_left = 15.0
+offset_right = 172.0
+offset_bottom = 49.0
+theme_override_font_sizes/font_size = 35
+text = "Gold: 250"
+vertical_alignment = 1
+
+[node name="Wave" type="Label" parent="CanvasLayer/UI"]
+visible = false
+layout_mode = 0
+offset_left = 15.0
+offset_top = 64.0
+offset_right = 172.0
+offset_bottom = 113.0
+theme_override_font_sizes/font_size = 35
+text = "Wave: 0"
+vertical_alignment = 1
+
+[node name="BossWave" type="Label" parent="CanvasLayer/UI"]
+visible = false
+custom_minimum_size = Vector2(200, 50)
+layout_mode = 1
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -112.0
+offset_right = 112.0
+offset_bottom = 55.0
+grow_horizontal = 2
+theme_override_font_sizes/font_size = 40
+text = "BOSS WAVE"
+
+[node name="Main Menu" type="Panel" parent="CanvasLayer/UI"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_bg3xd")
+
+[node name="MainMenu" type="VBoxContainer" parent="CanvasLayer/UI/Main Menu"]
+layout_mode = 1
+anchors_preset = 13
+anchor_left = 0.5
+anchor_right = 0.5
+anchor_bottom = 1.0
+offset_left = -46.5
+offset_right = 53.5
+grow_horizontal = 2
+grow_vertical = 2
+alignment = 1
+
+[node name="New Game" type="Button" parent="CanvasLayer/UI/Main Menu/MainMenu"]
+layout_mode = 2
+text = "New Game"
+
+[node name="Continue" type="Button" parent="CanvasLayer/UI/Main Menu/MainMenu"]
+layout_mode = 2
+disabled = true
+text = "Continue"
+
+[node name="Settings" type="Button" parent="CanvasLayer/UI/Main Menu/MainMenu"]
+layout_mode = 2
+text = "Settings"
+
+[node name="Credits" type="Button" parent="CanvasLayer/UI/Main Menu/MainMenu"]
+layout_mode = 2
+text = "Credits"
+
+[node name="Exit" type="Button" parent="CanvasLayer/UI/Main Menu/MainMenu"]
+layout_mode = 2
+text = "Exit Game"
+
+[node name="Settings" type="VBoxContainer" parent="CanvasLayer/UI/Main Menu"]
+visible = false
+layout_mode = 1
+anchors_preset = 13
+anchor_left = 0.5
+anchor_right = 0.5
+anchor_bottom = 1.0
+offset_left = -50.0
+offset_right = 50.0
+grow_horizontal = 2
+grow_vertical = 2
+alignment = 1
+
+[node name="Music" type="Label" parent="CanvasLayer/UI/Main Menu/Settings"]
+custom_minimum_size = Vector2(100, 20)
+layout_mode = 2
+text = "Music Volume"
+
+[node name="Music Slider" type="HSlider" parent="CanvasLayer/UI/Main Menu/Settings"]
+custom_minimum_size = Vector2(100, 20)
+layout_mode = 2
+max_value = 10.0
+value = 10.0
+
+[node name="Sound" type="Label" parent="CanvasLayer/UI/Main Menu/Settings"]
+custom_minimum_size = Vector2(100, 20)
+layout_mode = 2
+text = "Sound Volume
+"
+
+[node name="Sound Slider" type="HSlider" parent="CanvasLayer/UI/Main Menu/Settings"]
+layout_mode = 2
+max_value = 10.0
+value = 10.0
+
+[node name="Save Settings" type="Button" parent="CanvasLayer/UI/Main Menu/Settings"]
+layout_mode = 2
+text = "Save and Close
+"
+
+[node name="Cancel Settings" type="Button" parent="CanvasLayer/UI/Main Menu/Settings"]
+layout_mode = 2
+text = "Cancel
+"
+
+[node name="Credits" type="VBoxContainer" parent="CanvasLayer/UI/Main Menu"]
+visible = false
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -20.0
+offset_top = -20.0
+offset_right = 20.0
+offset_bottom = 20.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="TextEdit" type="TextEdit" parent="CanvasLayer/UI/Main Menu/Credits"]
+custom_minimum_size = Vector2(500, 200)
+layout_mode = 2
+theme_override_font_sizes/font_size = 32
+text = "Game Design / Implementation 
+by Ken Harris"
+editable = false
+context_menu_enabled = false
+shortcut_keys_enabled = false
+selecting_enabled = false
+deselect_on_focus_loss_enabled = false
+drag_and_drop_selection_enabled = false
+virtual_keyboard_enabled = false
+middle_mouse_paste_enabled = false
+
+[node name="CloseCredits" type="Button" parent="CanvasLayer/UI/Main Menu/Credits"]
+layout_mode = 2
+text = "Close
+"
+
+[node name="Label" type="Label" parent="CanvasLayer/UI/Main Menu"]
+layout_mode = 0
+offset_left = 3.0
+offset_right = 1151.0
+offset_bottom = 238.0
+theme_override_colors/font_color = Color(0.271286, 0.515493, 0.691527, 0.692)
+theme_override_fonts/font = ExtResource("6_ryt6p")
+theme_override_font_sizes/font_size = 48
+text = "GOES'LL TOWER DEFENSE"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="GameOverPanel" type="Panel" parent="CanvasLayer/UI"]
+visible = false
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_jgrey")
+
+[node name="GameOverLabel" type="Label" parent="CanvasLayer/UI/GameOverPanel"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -43.5
+offset_top = -11.5
+offset_right = 43.5
+offset_bottom = 11.5
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_font_sizes/font_size = 50
+text = "Game Over!"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="PlayAgainButton" type="Button" parent="CanvasLayer/UI/GameOverPanel"]
+custom_minimum_size = Vector2(200, 50)
+layout_mode = 0
+offset_left = 215.0
+offset_top = 489.0
+offset_right = 415.0
+offset_bottom = 539.0
+text = "Play Again?"
+
+[node name="QuitButton" type="Button" parent="CanvasLayer/UI/GameOverPanel"]
+custom_minimum_size = Vector2(200, 50)
+layout_mode = 0
+offset_left = 719.0
+offset_top = 489.0
+offset_right = 919.0
+offset_bottom = 539.0
+text = "Quit"
+
+[node name="PausePanel" type="Panel" parent="CanvasLayer/UI"]
+process_mode = 2
+visible = false
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="VBoxContainer" type="VBoxContainer" parent="CanvasLayer/UI/PausePanel"]
+layout_mode = 1
+anchors_preset = 13
+anchor_left = 0.5
+anchor_right = 0.5
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+alignment = 1
+
+[node name="Return Button" type="Button" parent="CanvasLayer/UI/PausePanel/VBoxContainer"]
+custom_minimum_size = Vector2(200, 40)
+layout_mode = 2
+text = "Return"
+
+[node name="Quit Game" type="Button" parent="CanvasLayer/UI/PausePanel/VBoxContainer"]
+custom_minimum_size = Vector2(200, 40)
+layout_mode = 2
+text = "Quit Game"
+
+[node name="Exit Game" type="Button" parent="CanvasLayer/UI/PausePanel/VBoxContainer"]
+custom_minimum_size = Vector2(200, 40)
+layout_mode = 2
+text = "Exit Game"
+
+[node name="Main3D" type="Node3D" parent="."]
+
+[node name="BuildIndicator" type="MeshInstance3D" parent="Main3D"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 4.5, 0.2, -4.5)
+visible = false
+mesh = ExtResource("6_0aq6p")
+skeleton = NodePath("../..")
+surface_material_override/0 = ExtResource("7_4362h")
+
+[node name="SpawnTimer" type="Timer" parent="Main3D"]
+process_mode = 1
+
+[node name="SoundEffects" parent="." instance=ExtResource("8_xw4n4")]
+audio_library = SubResource("Resource_lvqrx")
+
+[connection signal="pressed" from="CanvasLayer/UI/ShopPanel/VBoxContainer/CannonButton" to="." method="_on_cannon_button_pressed"]
+[connection signal="pressed" from="CanvasLayer/UI/ShopPanel/VBoxContainer/BlasterButton" to="." method="_on_blaster_button_pressed"]
+[connection signal="pressed" from="CanvasLayer/UI/ShopPanel/VBoxContainer/SniperButton" to="." method="_on_sniper_button_pressed"]
+[connection signal="pressed" from="CanvasLayer/UI/ShopPanel/VBoxContainer/CancelButton" to="." method="_on_cancel_button_pressed"]
+[connection signal="pressed" from="CanvasLayer/UI/NextWave" to="." method="_on_next_wave_pressed"]
+[connection signal="pressed" from="CanvasLayer/UI/Main Menu/MainMenu/New Game" to="CanvasLayer/UI/Main Menu" method="_on_new_game_pressed"]
+[connection signal="pressed" from="CanvasLayer/UI/Main Menu/MainMenu/Settings" to="CanvasLayer/UI/Main Menu" method="_on_settings_pressed"]
+[connection signal="pressed" from="CanvasLayer/UI/Main Menu/MainMenu/Credits" to="CanvasLayer/UI/Main Menu" method="_on_credits_pressed"]
+[connection signal="pressed" from="CanvasLayer/UI/Main Menu/MainMenu/Exit" to="CanvasLayer/UI/Main Menu" method="_on_exit_pressed"]
+[connection signal="pressed" from="CanvasLayer/UI/Main Menu/Settings/Save Settings" to="CanvasLayer/UI/Main Menu" method="_on_save_settings_pressed"]
+[connection signal="pressed" from="CanvasLayer/UI/Main Menu/Settings/Cancel Settings" to="CanvasLayer/UI/Main Menu" method="_on_cancel_settings_pressed"]
+[connection signal="pressed" from="CanvasLayer/UI/Main Menu/Credits/CloseCredits" to="CanvasLayer/UI/Main Menu" method="_on_close_credits_pressed"]
+[connection signal="pressed" from="CanvasLayer/UI/PausePanel/VBoxContainer/Return Button" to="." method="_on_return_button_pressed"]
+[connection signal="pressed" from="CanvasLayer/UI/PausePanel/VBoxContainer/Quit Game" to="." method="_on_quit_game_pressed"]
+[connection signal="timeout" from="Main3D/SpawnTimer" to="." method="_on_spawn_timer_timeout"]
