@@ -1,0 +1,13 @@
+[gd_scene load_steps=3 format=3 uid="uid://b8yeuhf4ssh5m"]
+
+[ext_resource type="PackedScene" uid="uid://c06du1sqyrd68" path="res://Blender/Corner.glb" id="1_5twyx"]
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_68ms7"]
+size = Vector3(1, 0.2, 1)
+
+[node name="ForestCorner" type="StaticBody3D" groups=["Path"]]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="."]
+shape = SubResource("BoxShape3D_68ms7")
+
+[node name="Corner2" parent="." instance=ExtResource("1_5twyx")]

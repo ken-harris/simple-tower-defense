@@ -263,6 +263,7 @@ curve = SubResource("Curve3D_a1o24")
 
 [node name="Camera3D" type="Camera3D" parent="."]
 transform = Transform3D(-5.87635e-08, -0.915733, 0.401788, 6.60428e-09, 0.401788, 0.915733, -1, 5.64652e-08, -1.75627e-08, 4.87997, 6.3618, -4.60148)
+current = true
 
 [node name="DirectionalLight3D" type="DirectionalLight3D" parent="."]
 transform = Transform3D(0.459191, -0.526666, 0.715379, -0.15839, 0.743857, 0.649299, -0.874103, -0.411461, 0.258154, 0, 3.76746, 0)

@@ -2,8 +2,8 @@ extends CharacterBody3D
 
 
 @export var speed : float = 2.0
-@export var health : int = 15
-@export var experience : int = 10
+@export var health : int = 1
+@export var experience : int = 50
 
 @onready var Path : PathFollow3D = get_parent()
 @onready var polyphonic_audio_player: AudioStreamPlayer2D = $"../PolyphonicAudioPlayer"

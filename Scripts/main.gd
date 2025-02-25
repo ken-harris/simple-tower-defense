@@ -1,4 +1,4 @@
-extends Control
+extends Node3D
 
 @onready var enemy : PackedScene = preload("res://Mobs/ufo.tscn")
 @onready var cannon : PackedScene = preload("res://Scenes/Towers/cannon-exp.tscn")
@@ -18,6 +18,9 @@ var enemies_to_spawn : int = 0
 var can_spawn : bool = true
 var game_over : bool = false
 var selected_collider: CollisionObject3D = null
+var camera_movement:bool = false
+var camera_look_input:Vector2
+var look_sensitivity:float = 0.005
 
 func reset_ui() -> void:
 	in_main_menu = true
@@ -32,7 +35,9 @@ func reset_ui() -> void:
 
 func handle_ui() -> void:
 	$CanvasLayer/UI/ShopPanel.visible = in_build_menu
-	$CanvasLayer/UI/NextWave.visible = not wave_on_going and not in_main_menu
+	$CanvasLayer/UI/NextWave.visible = not wave_on_going and not in_main_menu and enemies_to_spawn == 0
+	$CanvasLayer/UI/EnemiesRemain.visible = not in_main_menu and not (not wave_on_going and enemies_to_spawn == 0)
+	$CanvasLayer/UI/EnemiesRemain.text = "Remain: " + str(enemies_to_spawn)
 	$CanvasLayer/UI/Gold.visible = not in_main_menu
 	$CanvasLayer/UI/Gold.text = "Gold: " + str(Global.money)
 	$CanvasLayer/UI/Wave.visible = not in_main_menu
@@ -45,14 +50,24 @@ func handle_player_controls() -> void:
 	if in_main_menu or in_pause:
 		return
 	var current_level : Node3D = main_node.get_node("World")
+	var cam:Camera3D = current_level.get_node("Player").get_node("Camera3D")
 	if Input.is_action_just_pressed("options"):
 		in_pause = true
+		Input.mouse_mode = Input.MOUSE_MODE_VISIBLE
 		get_tree().paused = true
+	
+	#if Input.is_action_just_pressed("move_camera"):
+		#Input.mouse_mode = Input.MOUSE_MODE_CAPTURED
+		#camera_movement = true
+		#
+	#if Input.is_action_just_released("move_camera"):
+		#Input.mouse_mode = Input.MOUSE_MODE_VISIBLE
+		#camera_movement = false
 	
 	var space_state : PhysicsDirectSpaceState3D = current_level.get_world_3d().direct_space_state
 	var mouse_pos : Vector2 = get_viewport().get_mouse_position()
 	
-	var cam:Camera3D = current_level.get_node("Camera3D")
+	
 	var origin : Vector3 = cam.project_ray_origin(mouse_pos)
 	var end : Vector3 = origin + cam.project_ray_normal(mouse_pos) * 100
 	var ray : PhysicsRayQueryParameters3D = PhysicsRayQueryParameters3D.create(origin, end)

@@ -1,4 +1,4 @@
-[gd_scene load_steps=11 format=3 uid="uid://bjnmia7g7vslf"]
+[gd_scene load_steps=13 format=3 uid="uid://bjnmia7g7vslf"]
 
 [ext_resource type="ArrayMesh" uid="uid://cmndr15pti11j" path="res://Models/weapon_cannon.obj" id="1_8m1vs"]
 [ext_resource type="Script" path="res://Scripts/cannon.gd" id="1_hwu1q"]
@@ -6,6 +6,7 @@
 [ext_resource type="Script" path="res://Scripts/Classes/AudioLibrary.gd" id="5_kpfkn"]
 [ext_resource type="AudioStream" uid="uid://dcl6shqafc11k" path="res://Sounds/shoot-cannon.wav" id="6_5ul1g"]
 [ext_resource type="Script" path="res://Scripts/Classes/SoundEffect.gd" id="6_pdqk8"]
+[ext_resource type="AudioStream" uid="uid://cmwygx3c8ahqb" path="res://Sounds/level.wav" id="7_asld4"]
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_a27t1"]
 size = Vector3(1, 0.2, 1)
@@ -18,9 +19,14 @@ script = ExtResource("6_pdqk8")
 tag = "shoot"
 stream = ExtResource("6_5ul1g")
 
+[sub_resource type="Resource" id="Resource_23vr8"]
+script = ExtResource("6_pdqk8")
+tag = "level"
+stream = ExtResource("7_asld4")
+
 [sub_resource type="Resource" id="Resource_yklqd"]
 script = ExtResource("5_kpfkn")
-sound_effects = Array[ExtResource("6_pdqk8")]([SubResource("Resource_w03lf")])
+sound_effects = Array[ExtResource("6_pdqk8")]([SubResource("Resource_w03lf"), SubResource("Resource_23vr8")])
 
 [node name="Cannon" type="StaticBody3D" groups=["Not Empty"]]
 script = ExtResource("1_hwu1q")

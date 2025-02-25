@@ -1,0 +1,13 @@
+[gd_scene load_steps=3 format=3 uid="uid://bicthv331g330"]
+
+[ext_resource type="PackedScene" uid="uid://douio8xvhn464" path="res://Blender/Straight.glb" id="1_dlv4s"]
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_5yots"]
+size = Vector3(1, 0.2, 1)
+
+[node name="Straight" type="StaticBody3D" groups=["Path"]]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="."]
+shape = SubResource("BoxShape3D_5yots")
+
+[node name="Tile" parent="." instance=ExtResource("1_dlv4s")]

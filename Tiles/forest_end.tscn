@@ -1,0 +1,13 @@
+[gd_scene load_steps=3 format=3 uid="uid://dc73kkxcirybq"]
+
+[ext_resource type="PackedScene" uid="uid://cew5uwqt363xr" path="res://Blender/End.glb" id="1_ixkav"]
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_rrm2x"]
+size = Vector3(1, 0.2, 1)
+
+[node name="Tile End" type="StaticBody3D"]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="."]
+shape = SubResource("BoxShape3D_rrm2x")
+
+[node name="End2" parent="." instance=ExtResource("1_ixkav")]

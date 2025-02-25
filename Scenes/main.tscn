@@ -1,4 +1,4 @@
-[gd_scene load_steps=23 format=3 uid="uid://pr3d0gxyab1v"]
+[gd_scene load_steps=28 format=3 uid="uid://pr3d0gxyab1v"]
 
 [ext_resource type="Script" path="res://Scripts/main.gd" id="1_57k8d"]
 [ext_resource type="Script" path="res://Scripts/main_menu.gd" id="1_bg3xd"]
@@ -7,12 +7,15 @@
 [ext_resource type="Texture2D" uid="uid://djtxjgi0olff2" path="res://Textures/sniper-texture.png" id="4_rjtsb"]
 [ext_resource type="ArrayMesh" uid="uid://davdnwjaq4bn3" path="res://Models/woodStructure.obj" id="6_0aq6p"]
 [ext_resource type="FontFile" uid="uid://drrlyiuidm6t6" path="res://04B_30__.TTF" id="6_ryt6p"]
+[ext_resource type="PackedScene" uid="uid://dbdd01kv74jom" path="res://Scenes/button.tscn" id="6_wkh1n"]
 [ext_resource type="Material" uid="uid://c8hvl4boffvue" path="res://Materials/red.tres" id="7_4362h"]
 [ext_resource type="PackedScene" uid="uid://d15civcg127cm" path="res://Scenes/PolyphonicAudioPlayer.tscn" id="8_xw4n4"]
 [ext_resource type="Script" path="res://Scripts/Classes/AudioLibrary.gd" id="9_3m77h"]
 [ext_resource type="Script" path="res://Scripts/Classes/SoundEffect.gd" id="10_yhjtd"]
 [ext_resource type="AudioStream" uid="uid://cgusbwaepet0e" path="res://Sounds/sinister.wav" id="11_xfd16"]
 [ext_resource type="AudioStream" uid="uid://bh1osejdnhk3o" path="res://Sounds/place.wav" id="12_bud75"]
+[ext_resource type="AudioStream" uid="uid://cusr8l71heaju" path="res://Sounds/hover-button.wav" id="14_imei7"]
+[ext_resource type="AudioStream" uid="uid://kxltm7mupvev" path="res://Sounds/select.wav" id="15_fauao"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_siame"]
 content_margin_left = 10.0
@@ -112,16 +115,22 @@ script = ExtResource("10_yhjtd")
 tag = "place"
 stream = ExtResource("12_bud75")
 
+[sub_resource type="Resource" id="Resource_f80qd"]
+script = ExtResource("10_yhjtd")
+tag = "hover"
+stream = ExtResource("14_imei7")
+
+[sub_resource type="Resource" id="Resource_aqitw"]
+script = ExtResource("10_yhjtd")
+tag = "select"
+stream = ExtResource("15_fauao")
+
 [sub_resource type="Resource" id="Resource_lvqrx"]
 script = ExtResource("9_3m77h")
-sound_effects = Array[ExtResource("10_yhjtd")]([SubResource("Resource_dt3kp"), SubResource("Resource_bb35x")])
+sound_effects = Array[ExtResource("10_yhjtd")]([SubResource("Resource_dt3kp"), SubResource("Resource_bb35x"), SubResource("Resource_f80qd"), SubResource("Resource_aqitw")])
 
-[node name="Main" type="Control"]
+[node name="Main" type="Node3D"]
 process_mode = 3
-layout_mode = 3
-anchors_preset = 0
-offset_right = 40.0
-offset_bottom = 40.0
 script = ExtResource("1_57k8d")
 
 [node name="CanvasLayer" type="CanvasLayer" parent="."]
@@ -219,7 +228,7 @@ visible = false
 layout_mode = 0
 offset_left = 15.0
 offset_right = 172.0
-offset_bottom = 49.0
+offset_bottom = 50.0
 theme_override_font_sizes/font_size = 35
 text = "Gold: 250"
 vertical_alignment = 1
@@ -228,11 +237,22 @@ vertical_alignment = 1
 visible = false
 layout_mode = 0
 offset_left = 15.0
-offset_top = 64.0
+offset_top = 60.0
 offset_right = 172.0
-offset_bottom = 113.0
+offset_bottom = 109.0
 theme_override_font_sizes/font_size = 35
 text = "Wave: 0"
+vertical_alignment = 1
+
+[node name="EnemiesRemain" type="Label" parent="CanvasLayer/UI"]
+visible = false
+layout_mode = 0
+offset_left = 15.0
+offset_top = 120.0
+offset_right = 182.0
+offset_bottom = 169.0
+theme_override_font_sizes/font_size = 35
+text = "Remain: 0"
 vertical_alignment = 1
 
 [node name="BossWave" type="Label" parent="CanvasLayer/UI"]
@@ -270,7 +290,7 @@ grow_horizontal = 2
 grow_vertical = 2
 alignment = 1
 
-[node name="New Game" type="Button" parent="CanvasLayer/UI/Main Menu/MainMenu"]
+[node name="New Game" parent="CanvasLayer/UI/Main Menu/MainMenu" instance=ExtResource("6_wkh1n")]
 layout_mode = 2
 text = "New Game"
 
@@ -279,17 +299,17 @@ layout_mode = 2
 disabled = true
 text = "Continue"
 
-[node name="Settings" type="Button" parent="CanvasLayer/UI/Main Menu/MainMenu"]
+[node name="Settings" parent="CanvasLayer/UI/Main Menu/MainMenu" instance=ExtResource("6_wkh1n")]
 layout_mode = 2
 text = "Settings"
 
-[node name="Credits" type="Button" parent="CanvasLayer/UI/Main Menu/MainMenu"]
+[node name="Credits" parent="CanvasLayer/UI/Main Menu/MainMenu" instance=ExtResource("6_wkh1n")]
 layout_mode = 2
 text = "Credits"
 
-[node name="Exit" type="Button" parent="CanvasLayer/UI/Main Menu/MainMenu"]
+[node name="Exit" parent="CanvasLayer/UI/Main Menu/MainMenu" instance=ExtResource("6_wkh1n")]
 layout_mode = 2
-text = "Exit Game"
+text = "Exit"
 
 [node name="Settings" type="VBoxContainer" parent="CanvasLayer/UI/Main Menu"]
 visible = false
@@ -326,15 +346,13 @@ layout_mode = 2
 max_value = 10.0
 value = 10.0
 
-[node name="Save Settings" type="Button" parent="CanvasLayer/UI/Main Menu/Settings"]
+[node name="Save Settings" parent="CanvasLayer/UI/Main Menu/Settings" instance=ExtResource("6_wkh1n")]
 layout_mode = 2
-text = "Save and Close
-"
+text = "Save and Close"
 
-[node name="Cancel Settings" type="Button" parent="CanvasLayer/UI/Main Menu/Settings"]
+[node name="Cancel Settings" parent="CanvasLayer/UI/Main Menu/Settings" instance=ExtResource("6_wkh1n")]
 layout_mode = 2
-text = "Cancel
-"
+text = "Cancel"
 
 [node name="Credits" type="VBoxContainer" parent="CanvasLayer/UI/Main Menu"]
 visible = false

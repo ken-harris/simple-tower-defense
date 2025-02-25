@@ -1,0 +1,34 @@
+[gd_scene load_steps=10 format=3 uid="uid://dbdd01kv74jom"]
+
+[ext_resource type="PackedScene" uid="uid://d15civcg127cm" path="res://Scenes/PolyphonicAudioPlayer.tscn" id="1_8cybl"]
+[ext_resource type="Script" path="res://Scripts/hover-button.gd" id="1_fys3b"]
+[ext_resource type="Script" path="res://Scripts/Classes/AudioLibrary.gd" id="2_4u544"]
+[ext_resource type="Script" path="res://Scripts/Classes/SoundEffect.gd" id="3_odjcd"]
+[ext_resource type="AudioStream" uid="uid://cusr8l71heaju" path="res://Sounds/hover-button.wav" id="4_7odcq"]
+[ext_resource type="AudioStream" uid="uid://kxltm7mupvev" path="res://Sounds/select.wav" id="6_rfsv0"]
+
+[sub_resource type="Resource" id="Resource_7n30y"]
+script = ExtResource("3_odjcd")
+tag = "hover"
+stream = ExtResource("4_7odcq")
+
+[sub_resource type="Resource" id="Resource_np6bl"]
+script = ExtResource("3_odjcd")
+tag = "select"
+stream = ExtResource("6_rfsv0")
+
+[sub_resource type="Resource" id="Resource_3e08g"]
+script = ExtResource("2_4u544")
+sound_effects = Array[ExtResource("3_odjcd")]([SubResource("Resource_7n30y"), SubResource("Resource_np6bl")])
+
+[node name="Button" type="Button"]
+custom_minimum_size = Vector2(100, 20)
+offset_right = 8.0
+offset_bottom = 8.0
+script = ExtResource("1_fys3b")
+
+[node name="SoundEffects" parent="." instance=ExtResource("1_8cybl")]
+audio_library = SubResource("Resource_3e08g")
+
+[connection signal="button_down" from="." to="." method="_on_button_down"]
+[connection signal="mouse_entered" from="." to="." method="_on_mouse_entered"]

@@ -1,0 +1,177 @@
+[gd_scene load_steps=27 format=3 uid="uid://ce83qfu5ox2j6"]
+
+[ext_resource type="Script" path="res://Scripts/Level 1.gd" id="1_4v0xv"]
+[ext_resource type="PackedScene" uid="uid://cew5uwqt363xr" path="res://Blender/End.glb" id="2_cl2yw"]
+[ext_resource type="PackedScene" uid="uid://douio8xvhn464" path="res://Blender/Straight.glb" id="3_6vayl"]
+[ext_resource type="PackedScene" uid="uid://ci4rfdejo48le" path="res://Tiles/forest_tile.tscn" id="4_47dg0"]
+[ext_resource type="ArrayMesh" uid="uid://dtamd2p1p6mxg" path="res://Models/towerRound_sampleF.obj" id="7_1x8y4"]
+[ext_resource type="PackedScene" uid="uid://b8yeuhf4ssh5m" path="res://Tiles/forest_corner.tscn" id="7_xf0xl"]
+[ext_resource type="PackedScene" uid="uid://c0ojqj451flm0" path="res://Tiles/forest_four_way.tscn" id="8_etk2i"]
+[ext_resource type="PackedScene" uid="uid://d1cenqdiajigi" path="res://Scenes/health_bar_3d.tscn" id="8_hdibw"]
+[ext_resource type="PackedScene" uid="uid://bicthv331g330" path="res://Tiles/forest_straight.tscn" id="9_3t45m"]
+[ext_resource type="PackedScene" uid="uid://d15civcg127cm" path="res://Scenes/PolyphonicAudioPlayer.tscn" id="9_boit5"]
+[ext_resource type="Script" path="res://Scripts/Classes/AudioLibrary.gd" id="10_mhjhc"]
+[ext_resource type="Script" path="res://Scripts/Classes/SoundEffect.gd" id="11_sd346"]
+[ext_resource type="AudioStream" uid="uid://cgusbwaepet0e" path="res://Sounds/sinister.wav" id="12_7r3bc"]
+[ext_resource type="AudioStream" uid="uid://bh1osejdnhk3o" path="res://Sounds/place.wav" id="13_5ghci"]
+[ext_resource type="AudioStream" uid="uid://blns3vs8y4ctb" path="res://Sounds/background-music.wav" id="14_fmqxu"]
+[ext_resource type="Script" path="res://Scripts/player.gd" id="16_i2lyx"]
+
+[sub_resource type="Curve3D" id="Curve3D_fgvta"]
+_data = {
+"points": PackedVector3Array(0, 0, 0, 0, 0, 0, -0.01, 0.2, 0.011, 0, 0, 0, 0, 0, 0, 0.016, 0.2, -2.898, 0, 0, 0, 0, 0, 0, 0.988, 0.2, -2.912, 0, 0, 0, 0, 0, 0, 0.956, 0.2, -1.99, 0, 0, 0, 0, 0, 0, -0.907407, 0.238268, -2.06791, 0, 0, 0, 0, 0, 0, -0.868937, 0.226191, -4.89366, 0, 0, 0, 0, 0, 0, 0.011, 0.2, -5.002, 0, 0, 0, 0, 0, 0, -0.028, 0.2, -6.918),
+"tilts": PackedFloat32Array(0, 0, 0, 0, 0, 0, 0, 0)
+}
+point_count = 8
+
+[sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_qyvm7"]
+
+[sub_resource type="Sky" id="Sky_jpj73"]
+sky_material = SubResource("ProceduralSkyMaterial_qyvm7")
+
+[sub_resource type="Environment" id="Environment_mq5lk"]
+background_mode = 2
+background_color = Color(0.292617, 0.456442, 0.894573, 1)
+sky = SubResource("Sky_jpj73")
+
+[sub_resource type="Resource" id="Resource_dt3kp"]
+script = ExtResource("11_sd346")
+tag = "sinister"
+stream = ExtResource("12_7r3bc")
+
+[sub_resource type="Resource" id="Resource_bb35x"]
+script = ExtResource("11_sd346")
+tag = "place"
+stream = ExtResource("13_5ghci")
+
+[sub_resource type="Resource" id="Resource_wi7qh"]
+script = ExtResource("10_mhjhc")
+sound_effects = Array[ExtResource("11_sd346")]([SubResource("Resource_dt3kp"), SubResource("Resource_bb35x")])
+
+[sub_resource type="Resource" id="Resource_8lkrv"]
+script = ExtResource("11_sd346")
+tag = "music"
+stream = ExtResource("14_fmqxu")
+
+[sub_resource type="Resource" id="Resource_8p37c"]
+script = ExtResource("10_mhjhc")
+sound_effects = Array[ExtResource("11_sd346")]([SubResource("Resource_8lkrv")])
+
+[sub_resource type="CapsuleShape3D" id="CapsuleShape3D_x7wt5"]
+height = 1.8
+
+[node name="World" type="Node3D" groups=["Path"]]
+process_mode = 1
+script = ExtResource("1_4v0xv")
+
+[node name="Map" type="Node3D" parent="."]
+
+[node name="End2" parent="Map" instance=ExtResource("2_cl2yw")]
+
+[node name="Straight" parent="Map" instance=ExtResource("3_6vayl")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -1)
+
+[node name="Straight5" parent="Map" instance=ExtResource("3_6vayl")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -6)
+
+[node name="End3" parent="Map" instance=ExtResource("2_cl2yw")]
+transform = Transform3D(-1, 0, 8.74228e-08, 0, 1, 0, -8.74228e-08, 0, -1, 0, 0, -7)
+
+[node name="Build9" parent="Map" instance=ExtResource("4_47dg0")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1, 0, -1)
+
+[node name="Build8" parent="Map" instance=ExtResource("4_47dg0")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1, 0, 0)
+
+[node name="Build7" parent="Map" instance=ExtResource("4_47dg0")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1, 0, -7)
+
+[node name="Build6" parent="Map" instance=ExtResource("4_47dg0")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1, 0, -6)
+
+[node name="Build2" parent="Map" instance=ExtResource("4_47dg0")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1, 0, -1)
+
+[node name="Build" parent="Map" instance=ExtResource("4_47dg0")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1, 0, 0)
+
+[node name="TowerRoundSampleF" type="MeshInstance3D" parent="Map"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -6.97021)
+mesh = ExtResource("7_1x8y4")
+skeleton = NodePath("../..")
+
+[node name="HealthBar3D" parent="Map/TowerRoundSampleF" instance=ExtResource("8_hdibw")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.55351, 0)
+
+[node name="Build13" parent="Map" instance=ExtResource("4_47dg0")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1, 0, -7)
+
+[node name="Build14" parent="Map" instance=ExtResource("4_47dg0")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1, 0, -6)
+
+[node name="ForestCorner" parent="Map" instance=ExtResource("7_xf0xl")]
+transform = Transform3D(-1, 0, 8.74228e-08, 0, 1, 0, -8.74228e-08, 0, -1, 0, 0, -3)
+
+[node name="FourWay" parent="Map" instance=ExtResource("8_etk2i")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -2)
+
+[node name="ForestCorner2" parent="Map" instance=ExtResource("7_xf0xl")]
+transform = Transform3D(-4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, 1, 0, -3)
+
+[node name="ForestCorner3" parent="Map" instance=ExtResource("7_xf0xl")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1, 0, -2)
+
+[node name="ForestCorner4" parent="Map" instance=ExtResource("7_xf0xl")]
+transform = Transform3D(-4.37114e-08, 0, -1, 0, 1, 0, 1, 0, -4.37114e-08, -1, 0, -2)
+
+[node name="Straight2" parent="Map" instance=ExtResource("9_3t45m")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1, 0, -3)
+
+[node name="Straight3" parent="Map" instance=ExtResource("9_3t45m")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1, 0, -4)
+
+[node name="ForestCorner5" parent="Map" instance=ExtResource("7_xf0xl")]
+transform = Transform3D(-1, 0, 8.74228e-08, 0, 1, 0, -8.74228e-08, 0, -1, -1, 0, -5)
+
+[node name="ForestCorner6" parent="Map" instance=ExtResource("7_xf0xl")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -5)
+
+[node name="Build3" parent="Map" instance=ExtResource("4_47dg0")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -4)
+
+[node name="Build4" parent="Map" instance=ExtResource("4_47dg0")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1, 0, -5)
+
+[node name="Build5" parent="Map" instance=ExtResource("4_47dg0")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1, 0, -4)
+
+[node name="Path" type="Path3D" parent="."]
+curve = SubResource("Curve3D_fgvta")
+
+[node name="SpawnTimer" type="Timer" parent="."]
+
+[node name="DirectionalLight3D" type="DirectionalLight3D" parent="."]
+transform = Transform3D(0.459191, -0.526666, 0.715379, -0.15839, 0.743857, 0.649299, -0.874103, -0.411461, 0.258154, 0, 3.76746, 0)
+light_color = Color(0.940152, 0.645923, 0.88193, 1)
+shadow_enabled = true
+
+[node name="WorldEnvironment" type="WorldEnvironment" parent="."]
+environment = SubResource("Environment_mq5lk")
+
+[node name="SoundEffects" parent="." instance=ExtResource("9_boit5")]
+audio_library = SubResource("Resource_wi7qh")
+
+[node name="Music" parent="." instance=ExtResource("9_boit5")]
+audio_library = SubResource("Resource_8p37c")
+
+[node name="Player" type="CharacterBody3D" parent="."]
+transform = Transform3D(-4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, 3, 2, 0)
+script = ExtResource("16_i2lyx")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Player"]
+shape = SubResource("CapsuleShape3D_x7wt5")
+
+[node name="Camera3D" type="Camera3D" parent="Player"]
+current = true
+
+[connection signal="timeout" from="SpawnTimer" to="." method="_on_spawn_timer_timeout"]

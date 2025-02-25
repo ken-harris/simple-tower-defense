@@ -1,25 +1,18 @@
 extends Panel
 
 @onready var world : PackedScene = preload("res://Scenes/world.tscn")
+@onready var world2 : PackedScene = preload("res://Scenes/world2.tscn")
 @onready var main_3d: Node3D = $"../../../Main3D"
-@onready var main:Control = $"../../.."
+@onready var main:Node3D = $"../../.."
 @onready var settings:VBoxContainer = $Settings
 @onready var main_menu:VBoxContainer = $MainMenu
 @onready var credits:VBoxContainer = $Credits
-
-
-# Called when the node enters the scene tree for the first time.
-func _ready() -> void:
-	pass # Replace with function body.
-
-
-# Called every frame. 'delta' is the elapsed time since the previous frame.
-func _process(_delta: float) -> void:
-	pass
+@onready var sound_effects: AudioStreamPlayer2D = $"../../../SoundEffects"
 
 
 func _on_new_game_pressed() -> void:
-	var world_instance = world.instantiate()
+	sound_effects.play_sound_effect_from_lib("select")
+	var world_instance = world2.instantiate()
 	main_3d.add_child(world_instance)
 	self.visible = false
 	main.in_main_menu = false
@@ -57,3 +50,7 @@ func _on_cancel_settings_pressed() -> void:
 func _on_close_credits_pressed() -> void:
 	main_menu.visible = true
 	credits.visible = false
+
+
+func _on_new_game_mouse_entered() -> void:
+	sound_effects.play_sound_effect_from_lib("hover")

@@ -25,6 +25,7 @@ func update_exp(experience:int) -> void:
 	
 	if parent.get_total_exp() >= 100:
 		print("LEVELED UP!")
+		polyphonic_audio_player.play_sound_effect_from_lib("level")
 		# Level up:
 		# Increase level
 		level += 1
@@ -57,7 +58,7 @@ func handle_shot(position) -> void:
 func shoot() -> void:
 	handle_shot($WeaponMesh/Aim.global_position)
 
-func _process(delta: float) -> void:
+func _process(_delta: float) -> void:
 	if is_instance_valid(currently_shooting):
 		look_at(currently_shooting.global_position)
 		if can_shoot:
