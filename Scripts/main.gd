@@ -1,72 +1,79 @@
 extends Node3D
 
 @onready var enemy : PackedScene = preload("res://Mobs/ufo.tscn")
-@onready var cannon : PackedScene = preload("res://Scenes/Towers/cannon-exp.tscn")
+@onready var cannon : PackedScene = preload("res://Scenes/Towers/cannon2-exp.tscn")
 @onready var blaster : PackedScene = preload("res://Scenes/Towers/blaster-exp.tscn")
 @onready var sniper : PackedScene = preload("res://Scenes/Towers/sniper-exp.tscn")
+@onready var ice:PackedScene = preload("res://Scenes/Towers/ice-exp.tscn")
+@onready var flame:PackedScene = preload("res://Scenes/Towers/flame-exp.tscn")
+
 @onready var main_menu : Panel = $"CanvasLayer/UI/Main Menu"
+@onready var stat_panel: Panel = $"CanvasLayer/UI/StatsPanel"
 @onready var main_node : Node3D = $Main3D
 @onready var indicator : MeshInstance3D = $Main3D/BuildIndicator
 @onready var sound_effects: AudioStreamPlayer2D = $SoundEffects
+@onready var debug_text: Label = $CanvasLayer/UI/Debug
+@onready var complete_timer : Timer = $CompleteTimer
 
 var in_main_menu : bool = true
 var in_build_menu : bool = false
-var wave_on_going : bool = false
-var boss_wave : bool = false
+var in_tower_stats: bool = false
 var in_pause : bool = false
-var enemies_to_spawn : int = 0
-var can_spawn : bool = true
 var game_over : bool = false
+var camera_mode_enabled:bool = false
 var selected_collider: CollisionObject3D = null
-var camera_movement:bool = false
-var camera_look_input:Vector2
-var look_sensitivity:float = 0.005
+var selected_tower:Tower = null
+var waiting_complete:bool = false
 
 func reset_ui() -> void:
 	in_main_menu = true
 	in_build_menu = false
-	wave_on_going = false
-	boss_wave = false
+	in_tower_stats = false
 	in_pause = false
-	enemies_to_spawn = 0
-	can_spawn = true
 	game_over = false
 	selected_collider = null
+	selected_tower = null
+	waiting_complete = false
 
 func handle_ui() -> void:
 	$CanvasLayer/UI/ShopPanel.visible = in_build_menu
-	$CanvasLayer/UI/NextWave.visible = not wave_on_going and not in_main_menu and enemies_to_spawn == 0
-	$CanvasLayer/UI/EnemiesRemain.visible = not in_main_menu and not (not wave_on_going and enemies_to_spawn == 0)
-	$CanvasLayer/UI/EnemiesRemain.text = "Remain: " + str(enemies_to_spawn)
+	$CanvasLayer/UI/StatsPanel.visible = in_tower_stats
+	$CanvasLayer/UI/NextWave.visible = not Global.wave_ongoing and not Global.wave == Global.total_waves
+	$CanvasLayer/UI/EnemiesRemain.visible = not in_main_menu and not (not Global.wave_ongoing and Global.enemies_alive == 0)
+	$CanvasLayer/UI/EnemiesRemain.text = "Remain: " + str(Global.enemies_alive)
 	$CanvasLayer/UI/Gold.visible = not in_main_menu
 	$CanvasLayer/UI/Gold.text = "Gold: " + str(Global.money)
 	$CanvasLayer/UI/Wave.visible = not in_main_menu
-	$CanvasLayer/UI/Wave.text = "Wave: " + str(Global.wave)
-	$CanvasLayer/UI/BossWave.visible = boss_wave
+	$CanvasLayer/UI/Wave.text = "Wave: " + str(Global.wave) + " / " + str(Global.total_waves)
+	#$CanvasLayer/UI/BossWave.visible = boss_wave
 	$CanvasLayer/UI/PausePanel.visible = in_pause
 	$CanvasLayer/UI/GameOverPanel.visible = game_over
+	$CanvasLayer/UI/GameCompletePanel.visible = Global.game_complete
+	$CanvasLayer/UI/CameraButton.visible = not in_main_menu and not in_build_menu and not in_pause and not camera_mode_enabled and not in_tower_stats
+	$CanvasLayer/UI/CameraInstructions.visible = camera_mode_enabled
+	$CanvasLayer/UI/Debug.visible = not in_main_menu and not in_pause and not in_build_menu
 
 func handle_player_controls() -> void:
-	if in_main_menu or in_pause:
+	if in_main_menu or in_pause or in_tower_stats:
 		return
 	var current_level : Node3D = main_node.get_node("World")
-	var cam:Camera3D = current_level.get_node("Player").get_node("Camera3D")
-	if Input.is_action_just_pressed("options"):
+	var player:CharacterBody3D = current_level.get_node("Player")
+	var cam:Camera3D = player.get_node("Camera3D")
+	
+	if Input.is_action_just_pressed("options") and not camera_mode_enabled:
 		in_pause = true
 		Input.mouse_mode = Input.MOUSE_MODE_VISIBLE
 		get_tree().paused = true
+	elif Input.is_action_just_pressed("options") and camera_mode_enabled:
+		Input.mouse_mode = Input.MOUSE_MODE_VISIBLE
+		player.camera_selected()
+		camera_mode_enabled = false
 	
-	#if Input.is_action_just_pressed("move_camera"):
-		#Input.mouse_mode = Input.MOUSE_MODE_CAPTURED
-		#camera_movement = true
-		#
-	#if Input.is_action_just_released("move_camera"):
-		#Input.mouse_mode = Input.MOUSE_MODE_VISIBLE
-		#camera_movement = false
+	if camera_mode_enabled:
+		return
 	
 	var space_state : PhysicsDirectSpaceState3D = current_level.get_world_3d().direct_space_state
 	var mouse_pos : Vector2 = get_viewport().get_mouse_position()
-	
 	
 	var origin : Vector3 = cam.project_ray_origin(mouse_pos)
 	var end : Vector3 = origin + cam.project_ray_normal(mouse_pos) * 100
@@ -79,6 +86,15 @@ func handle_player_controls() -> void:
 		if ray_result.size() > 0:
 			indicator.visible = true
 			var collider : CollisionObject3D = ray_result.get("collider")
+			
+			if collider is Tower:
+				indicator.visible = false
+				if Input.is_action_just_pressed("interact"):
+					selected_tower = collider
+					debug_text.text = collider.name
+					var tower_data = collider.select_tower()
+					in_tower_stats = true
+					return
 			
 			indicator.global_position = collider.global_position + Vector3(0, 0.2, 0)
 			
@@ -104,37 +120,25 @@ func game_manager() -> void:
 	if Global.health <= 0:
 		game_over = true
 	
-	if boss_wave and enemies_to_spawn == 1 and can_spawn:
-		var boss = enemy.instantiate()
-		var character : CharacterBody3D = boss.get_child(0)
-		character.create_boss()
-		main_node.get_node("World").get_node("Path").add_child(boss)
-		
-		enemies_to_spawn -= 1
-		Global.enemies_alive += 1
-		can_spawn = false
-	
-	elif enemies_to_spawn > 0 and can_spawn:
-		main_node.get_node("SpawnTimer").start()
-		var temp_enemy = enemy.instantiate()
-		main_node.get_node("World").get_node("Path").add_child(temp_enemy)
-		
-		enemies_to_spawn -= 1
-		Global.enemies_alive += 1
-		can_spawn = false
-	
-	if Global.enemies_alive > 0:
-		wave_on_going = true
-	else:
-		wave_on_going = false
+	# Checks if you have completed the selected level
+	if not in_main_menu and \
+		Global.wave == Global.total_waves \
+		and not Global.wave_ongoing \
+		and not Global.game_complete \
+		and Global.enemies_alive == 0 \
+		and not waiting_complete:
+		waiting_complete = true
+		complete_timer.start()
+		print("Complete... Waiting....")
 
 func buy_tower(cost : int, scene : PackedScene) -> void:
 	if Global.money >= cost:
 		selected_collider.remove_from_group("Empty")
-		selected_collider.add_to_group("Tower")
+		#selected_collider.add_to_group("Tower")
 		in_build_menu = false
 		Global.money -= cost
 		var temp_tower : StaticBody3D = scene.instantiate()
+		temp_tower.add_to_group("Tower", true)
 		add_child(temp_tower)
 		temp_tower.global_position = indicator.global_position
 		sound_effects.play_sound_effect_from_lib("place")
@@ -144,15 +148,7 @@ func buy_tower(cost : int, scene : PackedScene) -> void:
 func _on_next_wave_pressed() -> void:
 	sound_effects.play_sound_effect_from_lib("sinister")
 	Global.wave += 1
-	boss_wave = Global.wave % 2 == 0
-	if boss_wave:
-		enemies_to_spawn = 1
-	else:
-		enemies_to_spawn = Global.wave * 3
-	can_spawn = true
-
-func _on_spawn_timer_timeout() -> void:
-	can_spawn = true
+	main_node.get_node("World").handle_spawn()
 
 func _on_cannon_button_pressed() -> void:
 	buy_tower(250, cannon)
@@ -181,3 +177,33 @@ func _on_quit_game_pressed() -> void:
 	Global.reset()
 	main_menu.visible = true
 	get_tree().reload_current_scene()
+
+func _on_camera_button_pressed() -> void:
+	camera_mode_enabled = !camera_mode_enabled
+	if camera_mode_enabled:
+		indicator.visible = false
+	else:
+		indicator.visible = true
+	var current_level : Node3D = main_node.get_node("World")
+	var player:CharacterBody3D = current_level.get_node("Player")
+	player.camera_selected()
+
+func _on_exit_game_pressed() -> void:
+	get_tree().quit()
+
+func _on_close_stats_pressed() -> void:
+	in_tower_stats = false
+	selected_tower.deselect_tower()
+
+
+func _on_ice_button_pressed() -> void:
+	buy_tower(300, ice)
+
+
+func _on_flame_button_pressed() -> void:
+	buy_tower(300, flame)
+
+
+func _on_complete_timer_timeout() -> void:
+	print("Game is completed!")
+	Global.game_complete = true

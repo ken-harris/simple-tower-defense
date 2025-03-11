@@ -1,0 +1,110 @@
+[gd_scene load_steps=17 format=3 uid="uid://2fipcwvyhwnc"]
+
+[ext_resource type="Script" path="res://Logo/logo.gd" id="1_3c5vc"]
+[ext_resource type="Texture2D" uid="uid://royujbce2i7x" path="res://Logo/goesll-logo-no-transparancy-Sheet.png" id="1_5da1s"]
+[ext_resource type="AudioStream" uid="uid://dcdce233y2ula" path="res://Logo/goesll.wav" id="2_4o1jx"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_5r0rv"]
+atlas = ExtResource("1_5da1s")
+region = Rect2(0, 0, 1500, 621)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_ifpqc"]
+atlas = ExtResource("1_5da1s")
+region = Rect2(1500, 0, 1500, 621)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_8236a"]
+atlas = ExtResource("1_5da1s")
+region = Rect2(3000, 0, 1500, 621)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_w5nov"]
+atlas = ExtResource("1_5da1s")
+region = Rect2(4500, 0, 1500, 621)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_06lsh"]
+atlas = ExtResource("1_5da1s")
+region = Rect2(6000, 0, 1500, 621)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_o0t2c"]
+atlas = ExtResource("1_5da1s")
+region = Rect2(7500, 0, 1500, 621)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_mvjfy"]
+atlas = ExtResource("1_5da1s")
+region = Rect2(9000, 0, 1500, 621)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_hm6cp"]
+atlas = ExtResource("1_5da1s")
+region = Rect2(10500, 0, 1500, 621)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_n05k5"]
+atlas = ExtResource("1_5da1s")
+region = Rect2(12000, 0, 1500, 621)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_6n0ne"]
+atlas = ExtResource("1_5da1s")
+region = Rect2(13500, 0, 1500, 621)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_gfpah"]
+atlas = ExtResource("1_5da1s")
+region = Rect2(15000, 0, 1500, 621)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_8rcgg"]
+atlas = ExtResource("1_5da1s")
+region = Rect2(16500, 0, 1500, 621)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_iindk"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_5r0rv")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_ifpqc")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_8236a")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_w5nov")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_06lsh")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_o0t2c")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_mvjfy")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_hm6cp")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_n05k5")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_6n0ne")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_gfpah")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_8rcgg")
+}],
+"loop": false,
+"name": &"default",
+"speed": 10.0
+}]
+
+[node name="Logo" type="Node2D"]
+script = ExtResource("1_3c5vc")
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
+position = Vector2(576, 313)
+scale = Vector2(0.208535, 0.208535)
+sprite_frames = SubResource("SpriteFrames_iindk")
+frame = 11
+frame_progress = 1.0
+
+[node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("2_4o1jx")

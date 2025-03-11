@@ -1,7 +1,41 @@
-[gd_scene load_steps=3 format=3 uid="uid://cod885v35blai"]
+[gd_scene load_steps=7 format=3 uid="uid://cod885v35blai"]
 
 [ext_resource type="Script" path="res://Scripts/exp_bar_3d.gd" id="1_edi83"]
 [ext_resource type="PackedScene" uid="uid://25kwgir5jsak" path="res://Scenes/experience_points.tscn" id="2_u1kf5"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_32hhq"]
+bg_color = Color(1, 1, 1, 1)
+border_width_left = 25
+border_width_top = 1
+border_width_right = 1
+border_width_bottom = 1
+border_color = Color(1, 1, 1, 1)
+border_blend = true
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_yuloq"]
+bg_color = Color(0.0509804, 0.458824, 0.733333, 1)
+border_width_left = 10
+border_width_top = 2
+border_width_right = 2
+border_width_bottom = 2
+border_color = Color(1, 1, 1, 1)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_cif7r"]
+bg_color = Color(1, 1, 1, 1)
+border_width_left = 25
+border_width_top = 1
+border_width_right = 1
+border_width_bottom = 1
+border_color = Color(1, 1, 1, 1)
+border_blend = true
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_bhubs"]
+bg_color = Color(1, 0.966, 0.49, 1)
+border_width_left = 10
+border_width_top = 2
+border_width_right = 2
+border_width_bottom = 2
+border_color = Color(1, 1, 1, 1)
 
 [node name="ExpBar3D" type="Sprite3D"]
 billboard = 1
@@ -11,3 +45,11 @@ script = ExtResource("1_edi83")
 size = Vector2i(80, 13)
 
 [node name="ExperiencePoints" parent="SubViewport" instance=ExtResource("2_u1kf5")]
+theme_override_styles/background = SubResource("StyleBoxFlat_32hhq")
+theme_override_styles/fill = SubResource("StyleBoxFlat_yuloq")
+
+[node name="Max" parent="SubViewport" instance=ExtResource("2_u1kf5")]
+visible = false
+theme_override_styles/background = SubResource("StyleBoxFlat_cif7r")
+theme_override_styles/fill = SubResource("StyleBoxFlat_bhubs")
+value = 100.0

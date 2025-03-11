@@ -1,0 +1,14 @@
+[gd_scene load_steps=3 format=3 uid="uid://bpbam42jo33yd"]
+
+[ext_resource type="PackedScene" uid="uid://cddtcnbraxa5g" path="res://Blender/Snow/Four Way.glb" id="1_yyf2y"]
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_naxvr"]
+size = Vector3(1, 0.2, 1)
+
+[node name="FourWay" type="StaticBody3D" groups=["Path"]]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.05, 0)
+shape = SubResource("BoxShape3D_naxvr")
+
+[node name="Four Way2" parent="." instance=ExtResource("1_yyf2y")]

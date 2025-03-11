@@ -1,0 +1,225 @@
+[gd_scene load_steps=29 format=3 uid="uid://d3m63l3q63j2g"]
+
+[ext_resource type="Script" path="res://Scripts/world_1.gd" id="1_fdk3l"]
+[ext_resource type="ArrayMesh" uid="uid://dtamd2p1p6mxg" path="res://Models/towerRound_sampleF.obj" id="2_xxv6r"]
+[ext_resource type="PackedScene" uid="uid://d1cenqdiajigi" path="res://Scenes/health_bar_3d.tscn" id="3_u37f4"]
+[ext_resource type="PackedScene" uid="uid://bmebfawxkjyu8" path="res://Tiles/Forest/Straight.tscn" id="4_koa4u"]
+[ext_resource type="PackedScene" uid="uid://dgtlbbrenfssi" path="res://Tiles/Forest/Build.tscn" id="5_enjw4"]
+[ext_resource type="PackedScene" uid="uid://bsmifh1wutvvj" path="res://Tiles/Forest/End.tscn" id="6_yuf3b"]
+[ext_resource type="PackedScene" uid="uid://8iq5r7vjdfvg" path="res://Tiles/Forest/FourWay.tscn" id="7_3vymw"]
+[ext_resource type="PackedScene" uid="uid://cc7p6inxrm0di" path="res://Tiles/Forest/Corner.tscn" id="8_q3rga"]
+[ext_resource type="PackedScene" uid="uid://d15civcg127cm" path="res://Scenes/PolyphonicAudioPlayer.tscn" id="9_xjlyy"]
+[ext_resource type="Script" path="res://Scripts/Classes/AudioLibrary.gd" id="10_odjwp"]
+[ext_resource type="Script" path="res://Scripts/Classes/SoundEffect.gd" id="11_v6kkh"]
+[ext_resource type="AudioStream" uid="uid://cgusbwaepet0e" path="res://Sounds/sinister.wav" id="12_hi1h7"]
+[ext_resource type="AudioStream" uid="uid://bh1osejdnhk3o" path="res://Sounds/place.wav" id="13_baivi"]
+[ext_resource type="AudioStream" uid="uid://blns3vs8y4ctb" path="res://Sounds/background-music.wav" id="14_y1nlp"]
+[ext_resource type="Script" path="res://Scripts/player.gd" id="15_nlupx"]
+
+[sub_resource type="Curve3D" id="Curve3D_fgvta"]
+_data = {
+"points": PackedVector3Array(0, 0, 0, 0, 0, 0, -0.01, 0.2, 0.011, 0, 0, 0, 0, 0, 0, 0.016, 0.2, -2.898, 0, 0, 0, 0, 0, 0, 0.988, 0.2, -2.912, 0, 0, 0, 0, 0, 0, 0.956, 0.2, -1.99, 0, 0, 0, 0, 0, 0, -0.907407, 0.238268, -2.06791, 0, 0, 0, 0, 0, 0, -0.868937, 0.226191, -4.89366, 0, 0, 0, 0, 0, 0, 0.011, 0.2, -5.002, 0, 0, 0, 0, 0, 0, -0.028, 0.2, -6.918),
+"tilts": PackedFloat32Array(0, 0, 0, 0, 0, 0, 0, 0)
+}
+point_count = 8
+
+[sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_wnhha"]
+sky_top_color = Color(0.211765, 0.313726, 0.552941, 1)
+sky_horizon_color = Color(0.545098, 0.686275, 0.811765, 1)
+sky_curve = 0.139955
+ground_bottom_color = Color(0.0225441, 0.204765, 0.189814, 1)
+ground_horizon_color = Color(0.545098, 0.686275, 0.811765, 1)
+
+[sub_resource type="Sky" id="Sky_jpj73"]
+sky_material = SubResource("ProceduralSkyMaterial_wnhha")
+
+[sub_resource type="Environment" id="Environment_mq5lk"]
+background_mode = 2
+background_color = Color(0.292617, 0.456442, 0.894573, 1)
+sky = SubResource("Sky_jpj73")
+ambient_light_source = 3
+ambient_light_color = Color(0.501961, 0.501961, 0.501961, 1)
+ambient_light_sky_contribution = 0.3
+ambient_light_energy = 3.0
+reflected_light_source = 2
+tonemap_mode = 2
+tonemap_white = 6.0
+
+[sub_resource type="Resource" id="Resource_dt3kp"]
+script = ExtResource("11_v6kkh")
+tag = "sinister"
+stream = ExtResource("12_hi1h7")
+
+[sub_resource type="Resource" id="Resource_bb35x"]
+script = ExtResource("11_v6kkh")
+tag = "place"
+stream = ExtResource("13_baivi")
+
+[sub_resource type="Resource" id="Resource_wi7qh"]
+script = ExtResource("10_odjwp")
+sound_effects = Array[ExtResource("11_v6kkh")]([SubResource("Resource_dt3kp"), SubResource("Resource_bb35x")])
+
+[sub_resource type="Resource" id="Resource_8lkrv"]
+script = ExtResource("11_v6kkh")
+tag = "music"
+stream = ExtResource("14_y1nlp")
+
+[sub_resource type="Resource" id="Resource_8p37c"]
+script = ExtResource("10_odjwp")
+sound_effects = Array[ExtResource("11_v6kkh")]([SubResource("Resource_8lkrv")])
+
+[sub_resource type="CapsuleShape3D" id="CapsuleShape3D_x7wt5"]
+height = 1.8
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_qbofl"]
+size = Vector3(35, 1, 35)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_0rlbo"]
+size = Vector3(1, 10, 35)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_swphx"]
+size = Vector3(35, 10, 1)
+
+[node name="World" type="Node3D" groups=["Path"]]
+process_mode = 1
+script = ExtResource("1_fdk3l")
+
+[node name="Map" type="Node3D" parent="."]
+
+[node name="TowerRoundSampleF" type="MeshInstance3D" parent="Map"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -6.97021)
+mesh = ExtResource("2_xxv6r")
+skeleton = NodePath("../..")
+
+[node name="HealthBar3D" parent="Map/TowerRoundSampleF" instance=ExtResource("3_u37f4")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.55351, 0)
+
+[node name="Straight" parent="Map" instance=ExtResource("4_koa4u")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1, 0, -3)
+
+[node name="Straight2" parent="Map" instance=ExtResource("4_koa4u")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1, 0, -4)
+
+[node name="Straight3" parent="Map" instance=ExtResource("4_koa4u")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -6)
+
+[node name="Build" parent="Map" instance=ExtResource("5_enjw4")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -4)
+
+[node name="Build2" parent="Map" instance=ExtResource("5_enjw4")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1, 0, -4)
+
+[node name="Build3" parent="Map" instance=ExtResource("5_enjw4")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1, 0, -5)
+
+[node name="Build4" parent="Map" instance=ExtResource("5_enjw4")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1, 0, -1)
+
+[node name="Build5" parent="Map" instance=ExtResource("5_enjw4")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1, 0, 0)
+
+[node name="Build6" parent="Map" instance=ExtResource("5_enjw4")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1, 0, -1)
+
+[node name="Build7" parent="Map" instance=ExtResource("5_enjw4")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1, 0, 0)
+
+[node name="Build8" parent="Map" instance=ExtResource("5_enjw4")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1, 0, -6)
+
+[node name="Build9" parent="Map" instance=ExtResource("5_enjw4")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1, 0, -7)
+
+[node name="End" parent="Map" instance=ExtResource("6_yuf3b")]
+
+[node name="End2" parent="Map" instance=ExtResource("6_yuf3b")]
+transform = Transform3D(-1, 0, -8.74228e-08, 0, 1, 0, 8.74228e-08, 0, -1, 0, 0, -7)
+
+[node name="Straight4" parent="Map" instance=ExtResource("4_koa4u")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -1)
+
+[node name="FourWay" parent="Map" instance=ExtResource("7_3vymw")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -2)
+
+[node name="Corner" parent="Map" instance=ExtResource("8_q3rga")]
+transform = Transform3D(-1, 0, 8.74228e-08, 0, 1, 0, -8.74228e-08, 0, -1, 0, 0, -3)
+
+[node name="Corner2" parent="Map" instance=ExtResource("8_q3rga")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1, 0, -2)
+
+[node name="Corner3" parent="Map" instance=ExtResource("8_q3rga")]
+transform = Transform3D(-4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, 1, 0, -3)
+
+[node name="Corner4" parent="Map" instance=ExtResource("8_q3rga")]
+transform = Transform3D(-4.37114e-08, 0, -1, 0, 1, 0, 1, 0, -4.37114e-08, -1, 0, -2)
+
+[node name="Corner5" parent="Map" instance=ExtResource("8_q3rga")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -5)
+
+[node name="Corner6" parent="Map" instance=ExtResource("8_q3rga")]
+transform = Transform3D(-1, 0, -8.74228e-08, 0, 1, 0, 8.74228e-08, 0, -1, -1, 0, -5)
+
+[node name="Build10" parent="Map" instance=ExtResource("5_enjw4")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1, 0, -6)
+
+[node name="Build11" parent="Map" instance=ExtResource("5_enjw4")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1, 0, -7)
+
+[node name="Path" type="Path3D" parent="."]
+curve = SubResource("Curve3D_fgvta")
+
+[node name="SpawnTimer" type="Timer" parent="."]
+
+[node name="WorldEnvironment" type="WorldEnvironment" parent="."]
+environment = SubResource("Environment_mq5lk")
+
+[node name="DirectionalLight3D" type="DirectionalLight3D" parent="WorldEnvironment"]
+transform = Transform3D(1, 0, 0, 0, 0.899886, 0.436126, 0, -0.436126, 0.899886, 0, 4, 3.1104)
+light_energy = 0.3
+shadow_enabled = true
+sky_mode = 1
+
+[node name="SoundEffects" parent="." instance=ExtResource("9_xjlyy")]
+audio_library = SubResource("Resource_wi7qh")
+
+[node name="Music" parent="." instance=ExtResource("9_xjlyy")]
+audio_library = SubResource("Resource_8p37c")
+
+[node name="Player" type="CharacterBody3D" parent="."]
+transform = Transform3D(-3.14624e-08, -0.694206, 0.719776, -3.03447e-08, 0.719776, 0.694206, -1, 0, -4.37114e-08, 3.76993, 2.92186, -3.54745)
+script = ExtResource("15_nlupx")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Player"]
+shape = SubResource("CapsuleShape3D_x7wt5")
+
+[node name="Camera3D" type="Camera3D" parent="Player"]
+transform = Transform3D(1, -1.77636e-15, -4.26326e-14, 1.77636e-15, 1, -1.19209e-07, 0, 5.96046e-08, 1, 0, 0, 0)
+current = true
+
+[node name="CameraBounds" type="StaticBody3D" parent="."]
+
+[node name="Top" type="CollisionShape3D" parent="CameraBounds"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 10, 0)
+shape = SubResource("BoxShape3D_qbofl")
+
+[node name="Bottom" type="CollisionShape3D" parent="CameraBounds"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -1, 0)
+shape = SubResource("BoxShape3D_qbofl")
+
+[node name="Side" type="CollisionShape3D" parent="CameraBounds"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 17, 4.5, 0)
+shape = SubResource("BoxShape3D_0rlbo")
+
+[node name="Side2" type="CollisionShape3D" parent="CameraBounds"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -17, 4.5, 0)
+shape = SubResource("BoxShape3D_0rlbo")
+
+[node name="Side3" type="CollisionShape3D" parent="CameraBounds"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 4.5, -17)
+shape = SubResource("BoxShape3D_swphx")
+
+[node name="Side4" type="CollisionShape3D" parent="CameraBounds"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 4.5, 17)
+shape = SubResource("BoxShape3D_swphx")
+
+[connection signal="timeout" from="SpawnTimer" to="." method="_on_spawn_timer_timeout"]

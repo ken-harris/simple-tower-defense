@@ -1,0 +1,13 @@
+[gd_scene load_steps=3 format=3 uid="uid://8iq5r7vjdfvg"]
+
+[ext_resource type="PackedScene" uid="uid://dmnfhmduuy808" path="res://Blender/Forest/FourWay.glb" id="1_tffei"]
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_tfcum"]
+size = Vector3(1, 0.2, 1)
+
+[node name="FourWay" type="StaticBody3D" groups=["Path"]]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="."]
+shape = SubResource("BoxShape3D_tfcum")
+
+[node name="FourWay" parent="." instance=ExtResource("1_tffei")]

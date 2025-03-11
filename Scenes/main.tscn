@@ -1,10 +1,13 @@
-[gd_scene load_steps=28 format=3 uid="uid://pr3d0gxyab1v"]
+[gd_scene load_steps=36 format=3 uid="uid://pr3d0gxyab1v"]
 
 [ext_resource type="Script" path="res://Scripts/main.gd" id="1_57k8d"]
 [ext_resource type="Script" path="res://Scripts/main_menu.gd" id="1_bg3xd"]
-[ext_resource type="Texture2D" uid="uid://bfnlukshbcrhx" path="res://Textures/weapon_cannon_S.png" id="2_hgamp"]
-[ext_resource type="Texture2D" uid="uid://dn0daligm56t" path="res://Textures/weapon_blaster_S.png" id="3_h1gfy"]
+[ext_resource type="Texture2D" uid="uid://cu2p80ocajsmr" path="res://Textures/cannon-small.png" id="2_8w4vh"]
+[ext_resource type="Texture2D" uid="uid://basucxkfqf14e" path="res://Textures/blaster.png" id="3_qtc7m"]
 [ext_resource type="Texture2D" uid="uid://djtxjgi0olff2" path="res://Textures/sniper-texture.png" id="4_rjtsb"]
+[ext_resource type="Texture2D" uid="uid://bbignepih6sgm" path="res://Icons/video-camera.png" id="5_2ctgq"]
+[ext_resource type="Texture2D" uid="uid://dmc18pypjbjra" path="res://Textures/frost.png" id="5_kro7s"]
+[ext_resource type="Texture2D" uid="uid://cj413x1becy6g" path="res://Textures/flamer.png" id="5_t8wh5"]
 [ext_resource type="ArrayMesh" uid="uid://davdnwjaq4bn3" path="res://Models/woodStructure.obj" id="6_0aq6p"]
 [ext_resource type="FontFile" uid="uid://drrlyiuidm6t6" path="res://04B_30__.TTF" id="6_ryt6p"]
 [ext_resource type="PackedScene" uid="uid://dbdd01kv74jom" path="res://Scenes/button.tscn" id="6_wkh1n"]
@@ -16,6 +19,9 @@
 [ext_resource type="AudioStream" uid="uid://bh1osejdnhk3o" path="res://Sounds/place.wav" id="12_bud75"]
 [ext_resource type="AudioStream" uid="uid://cusr8l71heaju" path="res://Sounds/hover-button.wav" id="14_imei7"]
 [ext_resource type="AudioStream" uid="uid://kxltm7mupvev" path="res://Sounds/select.wav" id="15_fauao"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_yoylj"]
+bg_color = Color(0.574336, 0.607458, 0.615398, 1)
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_siame"]
 content_margin_left = 10.0
@@ -36,6 +42,57 @@ corner_radius_bottom_left = 2
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_lv0i8"]
 content_margin_left = 10.0
+content_margin_top = 10.0
+content_margin_right = 75.0
+content_margin_bottom = 10.0
+bg_color = Color(0, 0.419608, 0.6, 1)
+border_width_left = 3
+border_width_top = 3
+border_width_right = 3
+border_width_bottom = 3
+border_color = Color(1, 1, 1, 1)
+border_blend = true
+corner_radius_top_left = 2
+corner_radius_top_right = 2
+corner_radius_bottom_right = 2
+corner_radius_bottom_left = 2
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_ch7sy"]
+content_margin_left = 25.0
+content_margin_top = 10.0
+content_margin_right = 75.0
+content_margin_bottom = 10.0
+bg_color = Color(1.15514e-05, 0.695115, 0.980223, 1)
+border_width_left = 3
+border_width_top = 3
+border_width_right = 3
+border_width_bottom = 3
+border_color = Color(1, 1, 1, 1)
+border_blend = true
+corner_radius_top_left = 2
+corner_radius_top_right = 2
+corner_radius_bottom_right = 2
+corner_radius_bottom_left = 2
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_7ptyt"]
+content_margin_left = 25.0
+content_margin_top = 10.0
+content_margin_right = 75.0
+content_margin_bottom = 10.0
+bg_color = Color(0, 0.419608, 0.6, 1)
+border_width_left = 3
+border_width_top = 3
+border_width_right = 3
+border_width_bottom = 3
+border_color = Color(1, 1, 1, 1)
+border_blend = true
+corner_radius_top_left = 2
+corner_radius_top_right = 2
+corner_radius_bottom_right = 2
+corner_radius_bottom_left = 2
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_gsxmq"]
+content_margin_left = 25.0
 content_margin_top = 10.0
 content_margin_right = 75.0
 content_margin_bottom = 10.0
@@ -102,6 +159,9 @@ corner_radius_top_right = 2
 corner_radius_bottom_right = 2
 corner_radius_bottom_left = 2
 
+[sub_resource type="LabelSettings" id="LabelSettings_lrn0v"]
+font_size = 20
+
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_jgrey"]
 bg_color = Color(0.254902, 0.388235, 0.87451, 1)
 
@@ -144,7 +204,6 @@ grow_horizontal = 2
 grow_vertical = 2
 
 [node name="ShopPanel" type="Panel" parent="CanvasLayer/UI"]
-visible = false
 custom_minimum_size = Vector2(300, 0)
 layout_mode = 1
 anchors_preset = 11
@@ -153,6 +212,7 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 0
 grow_vertical = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_yoylj")
 
 [node name="VBoxContainer" type="VBoxContainer" parent="CanvasLayer/UI/ShopPanel"]
 layout_mode = 1
@@ -169,8 +229,11 @@ focus_mode = 0
 theme_override_styles/hover = SubResource("StyleBoxFlat_siame")
 theme_override_styles/pressed = SubResource("StyleBoxFlat_lv0i8")
 theme_override_styles/normal = SubResource("StyleBoxFlat_lv0i8")
-text = "250 Gold"
-icon = ExtResource("2_hgamp")
+text = "Cannon
+
+250 Gold"
+icon = ExtResource("2_8w4vh")
+alignment = 2
 expand_icon = true
 
 [node name="BlasterButton" type="Button" parent="CanvasLayer/UI/ShopPanel/VBoxContainer"]
@@ -180,8 +243,11 @@ focus_mode = 0
 theme_override_styles/hover = SubResource("StyleBoxFlat_siame")
 theme_override_styles/pressed = SubResource("StyleBoxFlat_lv0i8")
 theme_override_styles/normal = SubResource("StyleBoxFlat_lv0i8")
-text = "300 Gold"
-icon = ExtResource("3_h1gfy")
+text = "Blaster
+
+300 Gold"
+icon = ExtResource("3_qtc7m")
+alignment = 2
 expand_icon = true
 
 [node name="SniperButton" type="Button" parent="CanvasLayer/UI/ShopPanel/VBoxContainer"]
@@ -191,8 +257,39 @@ focus_mode = 0
 theme_override_styles/hover = SubResource("StyleBoxFlat_siame")
 theme_override_styles/pressed = SubResource("StyleBoxFlat_lv0i8")
 theme_override_styles/normal = SubResource("StyleBoxFlat_lv0i8")
-text = "300 Gold"
+text = "Sniper
+
+300 Gold"
 icon = ExtResource("4_rjtsb")
+alignment = 2
+expand_icon = true
+
+[node name="IceButton" type="Button" parent="CanvasLayer/UI/ShopPanel/VBoxContainer"]
+custom_minimum_size = Vector2(0, 100)
+layout_mode = 2
+focus_mode = 0
+theme_override_styles/hover = SubResource("StyleBoxFlat_ch7sy")
+theme_override_styles/pressed = SubResource("StyleBoxFlat_7ptyt")
+theme_override_styles/normal = SubResource("StyleBoxFlat_gsxmq")
+text = "Frost
+
+300 Gold"
+icon = ExtResource("5_kro7s")
+alignment = 2
+expand_icon = true
+
+[node name="FlameButton" type="Button" parent="CanvasLayer/UI/ShopPanel/VBoxContainer"]
+custom_minimum_size = Vector2(0, 100)
+layout_mode = 2
+focus_mode = 0
+theme_override_styles/hover = SubResource("StyleBoxFlat_siame")
+theme_override_styles/pressed = SubResource("StyleBoxFlat_lv0i8")
+theme_override_styles/normal = SubResource("StyleBoxFlat_lv0i8")
+text = "Flamer
+
+300 Gold"
+icon = ExtResource("5_t8wh5")
+alignment = 2
 expand_icon = true
 
 [node name="Panel" type="Panel" parent="CanvasLayer/UI/ShopPanel/VBoxContainer"]
@@ -208,6 +305,55 @@ theme_override_styles/hover = SubResource("StyleBoxFlat_kenkb")
 theme_override_styles/pressed = SubResource("StyleBoxFlat_dsc5o")
 theme_override_styles/normal = SubResource("StyleBoxFlat_pp5vv")
 text = "Cancel"
+
+[node name="StatsPanel" type="Panel" parent="CanvasLayer/UI"]
+visible = false
+custom_minimum_size = Vector2(300, 0)
+layout_mode = 1
+anchors_preset = 11
+anchor_left = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 0
+grow_vertical = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_yoylj")
+
+[node name="VBoxContainer" type="VBoxContainer" parent="CanvasLayer/UI/StatsPanel"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="TowerType" type="Label" parent="CanvasLayer/UI/StatsPanel/VBoxContainer"]
+layout_mode = 2
+text = "Tower:"
+label_settings = SubResource("LabelSettings_lrn0v")
+
+[node name="Level" type="Label" parent="CanvasLayer/UI/StatsPanel/VBoxContainer"]
+layout_mode = 2
+text = "Level:"
+label_settings = SubResource("LabelSettings_lrn0v")
+
+[node name="Damage" type="Label" parent="CanvasLayer/UI/StatsPanel/VBoxContainer"]
+layout_mode = 2
+text = "Damage: "
+label_settings = SubResource("LabelSettings_lrn0v")
+
+[node name="Speed" type="Label" parent="CanvasLayer/UI/StatsPanel/VBoxContainer"]
+layout_mode = 2
+text = "Speed:"
+label_settings = SubResource("LabelSettings_lrn0v")
+
+[node name="Range" type="Label" parent="CanvasLayer/UI/StatsPanel/VBoxContainer"]
+layout_mode = 2
+text = "Range:"
+label_settings = SubResource("LabelSettings_lrn0v")
+
+[node name="CloseStats" type="Button" parent="CanvasLayer/UI/StatsPanel/VBoxContainer"]
+layout_mode = 2
+text = "Close"
 
 [node name="NextWave" type="Button" parent="CanvasLayer/UI"]
 visible = false
@@ -268,6 +414,53 @@ offset_bottom = 55.0
 grow_horizontal = 2
 theme_override_font_sizes/font_size = 40
 text = "BOSS WAVE"
+
+[node name="CameraButton" type="Button" parent="CanvasLayer/UI"]
+visible = false
+layout_mode = 1
+anchors_preset = 3
+anchor_left = 1.0
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = -72.0
+offset_top = -72.0
+grow_horizontal = 0
+grow_vertical = 0
+tooltip_text = "Move the camera around"
+action_mode = 0
+icon = ExtResource("5_2ctgq")
+flat = true
+
+[node name="CameraInstructions" type="Label" parent="CanvasLayer/UI"]
+visible = false
+layout_mode = 1
+anchors_preset = 3
+anchor_left = 1.0
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = -222.0
+offset_top = -23.0
+grow_horizontal = 0
+grow_vertical = 0
+text = "Look mode enabled.
+Press ESC to lock the camera"
+
+[node name="Debug" type="Label" parent="CanvasLayer/UI"]
+visible = false
+layout_mode = 1
+anchors_preset = 7
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+offset_left = -30.0
+offset_top = -23.0
+offset_right = 30.0
+grow_horizontal = 2
+grow_vertical = 0
+text = "DEBUG:"
 
 [node name="Main Menu" type="Panel" parent="CanvasLayer/UI"]
 layout_mode = 1
@@ -374,7 +567,9 @@ custom_minimum_size = Vector2(500, 200)
 layout_mode = 2
 theme_override_font_sizes/font_size = 32
 text = "Game Design / Implementation 
-by Ken Harris"
+by Ken Harris
+
+Cinema icons created by Good Ware - Flaticon"
 editable = false
 context_menu_enabled = false
 shortcut_keys_enabled = false
@@ -400,6 +595,37 @@ theme_override_font_sizes/font_size = 48
 text = "GOES'LL TOWER DEFENSE"
 horizontal_alignment = 1
 vertical_alignment = 1
+
+[node name="LevelSelect" type="HFlowContainer" parent="CanvasLayer/UI/Main Menu"]
+visible = false
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -359.0
+offset_top = -33.0
+offset_right = 427.0
+offset_bottom = 33.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Level1" type="Button" parent="CanvasLayer/UI/Main Menu/LevelSelect"]
+layout_mode = 2
+text = "Level 1"
+
+[node name="Level2" type="Button" parent="CanvasLayer/UI/Main Menu/LevelSelect"]
+layout_mode = 2
+text = "Level 2"
+
+[node name="Level3" type="Button" parent="CanvasLayer/UI/Main Menu/LevelSelect"]
+layout_mode = 2
+text = "Level 3"
+
+[node name="Level4" type="Button" parent="CanvasLayer/UI/Main Menu/LevelSelect"]
+layout_mode = 2
+text = "Cancel"
 
 [node name="GameOverPanel" type="Panel" parent="CanvasLayer/UI"]
 visible = false
@@ -446,6 +672,53 @@ offset_top = 489.0
 offset_right = 919.0
 offset_bottom = 539.0
 text = "Quit"
+
+[node name="GameCompletePanel" type="Panel" parent="CanvasLayer/UI"]
+visible = false
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_jgrey")
+
+[node name="CompleteLabel" type="Label" parent="CanvasLayer/UI/GameCompletePanel"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -43.5
+offset_top = -11.5
+offset_right = 43.5
+offset_bottom = 11.5
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_font_sizes/font_size = 50
+text = "Congratulations!
+You won!"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="MainMenuButton" type="Button" parent="CanvasLayer/UI/GameCompletePanel"]
+custom_minimum_size = Vector2(200, 50)
+layout_mode = 0
+offset_left = 215.0
+offset_top = 489.0
+offset_right = 415.0
+offset_bottom = 539.0
+text = "Main Menu"
+
+[node name="QuitButton" type="Button" parent="CanvasLayer/UI/GameCompletePanel"]
+custom_minimum_size = Vector2(200, 50)
+layout_mode = 0
+offset_left = 719.0
+offset_top = 489.0
+offset_right = 919.0
+offset_bottom = 539.0
+text = "Quit Game"
 
 [node name="PausePanel" type="Panel" parent="CanvasLayer/UI"]
 process_mode = 2
@@ -497,11 +770,19 @@ process_mode = 1
 [node name="SoundEffects" parent="." instance=ExtResource("8_xw4n4")]
 audio_library = SubResource("Resource_lvqrx")
 
+[node name="CompleteTimer" type="Timer" parent="."]
+wait_time = 3.0
+one_shot = true
+
 [connection signal="pressed" from="CanvasLayer/UI/ShopPanel/VBoxContainer/CannonButton" to="." method="_on_cannon_button_pressed"]
 [connection signal="pressed" from="CanvasLayer/UI/ShopPanel/VBoxContainer/BlasterButton" to="." method="_on_blaster_button_pressed"]
 [connection signal="pressed" from="CanvasLayer/UI/ShopPanel/VBoxContainer/SniperButton" to="." method="_on_sniper_button_pressed"]
+[connection signal="pressed" from="CanvasLayer/UI/ShopPanel/VBoxContainer/IceButton" to="." method="_on_ice_button_pressed"]
+[connection signal="pressed" from="CanvasLayer/UI/ShopPanel/VBoxContainer/FlameButton" to="." method="_on_flame_button_pressed"]
 [connection signal="pressed" from="CanvasLayer/UI/ShopPanel/VBoxContainer/CancelButton" to="." method="_on_cancel_button_pressed"]
+[connection signal="pressed" from="CanvasLayer/UI/StatsPanel/VBoxContainer/CloseStats" to="." method="_on_close_stats_pressed"]
 [connection signal="pressed" from="CanvasLayer/UI/NextWave" to="." method="_on_next_wave_pressed"]
+[connection signal="pressed" from="CanvasLayer/UI/CameraButton" to="." method="_on_camera_button_pressed"]
 [connection signal="pressed" from="CanvasLayer/UI/Main Menu/MainMenu/New Game" to="CanvasLayer/UI/Main Menu" method="_on_new_game_pressed"]
 [connection signal="pressed" from="CanvasLayer/UI/Main Menu/MainMenu/Settings" to="CanvasLayer/UI/Main Menu" method="_on_settings_pressed"]
 [connection signal="pressed" from="CanvasLayer/UI/Main Menu/MainMenu/Credits" to="CanvasLayer/UI/Main Menu" method="_on_credits_pressed"]
@@ -509,6 +790,13 @@ audio_library = SubResource("Resource_lvqrx")
 [connection signal="pressed" from="CanvasLayer/UI/Main Menu/Settings/Save Settings" to="CanvasLayer/UI/Main Menu" method="_on_save_settings_pressed"]
 [connection signal="pressed" from="CanvasLayer/UI/Main Menu/Settings/Cancel Settings" to="CanvasLayer/UI/Main Menu" method="_on_cancel_settings_pressed"]
 [connection signal="pressed" from="CanvasLayer/UI/Main Menu/Credits/CloseCredits" to="CanvasLayer/UI/Main Menu" method="_on_close_credits_pressed"]
+[connection signal="pressed" from="CanvasLayer/UI/Main Menu/LevelSelect/Level1" to="CanvasLayer/UI/Main Menu" method="_on_level_1_pressed"]
+[connection signal="pressed" from="CanvasLayer/UI/Main Menu/LevelSelect/Level2" to="CanvasLayer/UI/Main Menu" method="_on_level_2_pressed"]
+[connection signal="pressed" from="CanvasLayer/UI/Main Menu/LevelSelect/Level3" to="CanvasLayer/UI/Main Menu" method="_on_level_3_pressed"]
+[connection signal="pressed" from="CanvasLayer/UI/GameCompletePanel/MainMenuButton" to="." method="_on_quit_game_pressed"]
+[connection signal="pressed" from="CanvasLayer/UI/GameCompletePanel/QuitButton" to="." method="_on_exit_game_pressed"]
 [connection signal="pressed" from="CanvasLayer/UI/PausePanel/VBoxContainer/Return Button" to="." method="_on_return_button_pressed"]
 [connection signal="pressed" from="CanvasLayer/UI/PausePanel/VBoxContainer/Quit Game" to="." method="_on_quit_game_pressed"]
+[connection signal="pressed" from="CanvasLayer/UI/PausePanel/VBoxContainer/Exit Game" to="." method="_on_exit_game_pressed"]
 [connection signal="timeout" from="Main3D/SpawnTimer" to="." method="_on_spawn_timer_timeout"]
+[connection signal="timeout" from="CompleteTimer" to="." method="_on_complete_timer_timeout"]

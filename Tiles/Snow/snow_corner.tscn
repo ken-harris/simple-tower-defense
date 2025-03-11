@@ -1,0 +1,15 @@
+[gd_scene load_steps=3 format=3 uid="uid://c4qpr8olhnldm"]
+
+[ext_resource type="PackedScene" uid="uid://b63s7248l6bth" path="res://Blender/Snow/Corner.glb" id="1_6lobt"]
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_5psj1"]
+size = Vector3(1, 0.2, 1)
+
+[node name="Corner" type="StaticBody3D" groups=["Path"]]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.05, 0)
+shape = SubResource("BoxShape3D_5psj1")
+
+[node name="Corner2" parent="." instance=ExtResource("1_6lobt")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.05, 0, 0)

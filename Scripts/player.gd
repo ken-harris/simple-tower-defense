@@ -9,14 +9,19 @@ var camera_look_input:Vector2
 var gravity_modifier:float = 1.5
 @onready var gravity:float = ProjectSettings.get_setting("physics/3d/default_gravity") * gravity_modifier
 
+var camera_locked:bool = false
 var is_going_up:bool = false
 var is_going_down:bool = false
 
-func _ready():
-	# Locks the mouse inside of the window
-	Input.mouse_mode = Input.MOUSE_MODE_CAPTURED
+func camera_selected() -> void:
+	camera_locked = !camera_locked
+	if camera_locked:
+		Input.mouse_mode = Input.MOUSE_MODE_CAPTURED
 
 func _physics_process(delta: float) -> void:
+	# Don't move unless the camera button is clicked and you're still moving.
+	if !camera_locked and !is_going_down and !is_going_up:
+		return
 	var move_input = Input.get_vector("move_left", "move_right", "move_forward", "move_backward")
 	var move_dir = (transform.basis * Vector3(move_input.x, 0, move_input.y)).normalized()
 	

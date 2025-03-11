@@ -1,6 +1,7 @@
 extends Sprite3D
 
 @onready var bar : ProgressBar = $SubViewport/ExperiencePoints
+@onready var max : ProgressBar = $SubViewport/Max
 
 func _ready() -> void:
 	texture = $SubViewport.get_texture()
@@ -19,6 +20,8 @@ func set_level(level:int) -> void:
 	LevelLabel.text = str(level)
 
 func max_level() -> void:
-	bar.value = 100
-	var style_box:StyleBox = bar.get("theme_override_styles/fill")
-	style_box.bg_color = Color(1,1,0)
+	bar.visible = false
+	var LevelLabel:Label = max.get_child(0)
+	LevelLabel.text = "Max"
+	max.visible = true
+	

@@ -1,0 +1,13 @@
+[gd_scene load_steps=3 format=3 uid="uid://7bb0y5s1g2dk"]
+
+[ext_resource type="PackedScene" uid="uid://dc0ykcgvx2epc" path="res://Blender/Snow/Edge-Side.glb" id="1_wsta3"]
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_v6cti"]
+size = Vector3(1, 0.2, 1)
+
+[node name="EdgeSide" type="StaticBody3D"]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="."]
+shape = SubResource("BoxShape3D_v6cti")
+
+[node name="Edge-Side2" parent="." instance=ExtResource("1_wsta3")]

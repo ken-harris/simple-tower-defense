@@ -1,4 +1,4 @@
-[gd_scene load_steps=13 format=3 uid="uid://p76cbeq32oxh"]
+[gd_scene load_steps=16 format=3 uid="uid://p76cbeq32oxh"]
 
 [ext_resource type="Script" path="res://Scripts/sniper.gd" id="1_pp1l0"]
 [ext_resource type="ArrayMesh" uid="uid://boyipg82lv0ck" path="res://Models/sniper.obj" id="2_swf5o"]
@@ -10,8 +10,21 @@
 
 [sub_resource type="Skin" id="Skin_phc4r"]
 
+[sub_resource type="BoxShape3D" id="BoxShape3D_6x5y8"]
+size = Vector3(1, 0.2, 1)
+
 [sub_resource type="SphereShape3D" id="SphereShape3D_kmctb"]
 radius = 3.0
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_tygs1"]
+transparency = 1
+blend_mode = 1
+albedo_color = Color(0.24, 1, 0.544, 0.0980392)
+
+[sub_resource type="SphereMesh" id="SphereMesh_cx4ll"]
+material = SubResource("StandardMaterial3D_tygs1")
+radius = 3.0
+height = 6.0
 
 [sub_resource type="Resource" id="Resource_cg51h"]
 script = ExtResource("5_53c5e")
@@ -39,10 +52,18 @@ skin = SubResource("Skin_phc4r")
 [node name="Aim" type="Marker3D" parent="WeaponMesh"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.456103, 0.485667)
 
+[node name="CollisionShape3D" type="CollisionShape3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.08, 0)
+shape = SubResource("BoxShape3D_6x5y8")
+
 [node name="MobDetector" type="Area3D" parent="."]
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="MobDetector"]
 shape = SubResource("SphereShape3D_kmctb")
+
+[node name="DisplayRange" type="MeshInstance3D" parent="MobDetector"]
+visible = false
+mesh = SubResource("SphereMesh_cx4ll")
 
 [node name="BulletContainer" type="Node" parent="."]
 

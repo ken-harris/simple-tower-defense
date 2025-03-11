@@ -1,0 +1,13 @@
+[gd_scene load_steps=3 format=3 uid="uid://dgtlbbrenfssi"]
+
+[ext_resource type="PackedScene" uid="uid://cv57jk160m4ma" path="res://Blender/Forest/Build.glb" id="1_01qf0"]
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_41i4n"]
+size = Vector3(1, 0.2, 1)
+
+[node name="Build" type="StaticBody3D" groups=["Empty"]]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="."]
+shape = SubResource("BoxShape3D_41i4n")
+
+[node name="Build" parent="." groups=["Empty"] instance=ExtResource("1_01qf0")]

@@ -1,0 +1,14 @@
+[gd_scene load_steps=4 format=3 uid="uid://dm1t3x8guljj2"]
+
+[ext_resource type="Script" path="res://Scripts/tower_exp.gd" id="1_lwl6q"]
+[ext_resource type="PackedScene" uid="uid://uso63gbx3yb4" path="res://Scenes/Towers/flame.tscn" id="2_qe75l"]
+[ext_resource type="PackedScene" uid="uid://cod885v35blai" path="res://Scenes/exp_bar_3d.tscn" id="3_tt2tm"]
+
+[node name="FireExp" type="StaticBody3D"]
+script = ExtResource("1_lwl6q")
+
+[node name="ExpBar3D" parent="." instance=ExtResource("3_tt2tm")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.45, 0, 0.37)
+centered = false
+
+[node name="Flame" parent="." instance=ExtResource("2_qe75l")]

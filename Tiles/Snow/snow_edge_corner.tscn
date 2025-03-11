@@ -1,0 +1,13 @@
+[gd_scene load_steps=3 format=3 uid="uid://p2tochras52u"]
+
+[ext_resource type="PackedScene" uid="uid://dbg61inrievjx" path="res://Blender/Snow/Edge-Corner.glb" id="1_n3rjp"]
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_egnxs"]
+size = Vector3(1, 0.2, 1)
+
+[node name="EdgeCorner" type="StaticBody3D"]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="."]
+shape = SubResource("BoxShape3D_egnxs")
+
+[node name="Edge-Corner2" parent="." instance=ExtResource("1_n3rjp")]

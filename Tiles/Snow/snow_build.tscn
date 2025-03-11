@@ -1,0 +1,13 @@
+[gd_scene load_steps=3 format=3 uid="uid://ygircolwgwus"]
+
+[ext_resource type="PackedScene" uid="uid://bm02gvbw23vaa" path="res://Blender/Snow/Build.glb" id="1_oa5wa"]
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_6yytf"]
+size = Vector3(1, 0.2, 1)
+
+[node name="Build" type="StaticBody3D" groups=["Empty"]]
+
+[node name="Build2" parent="." instance=ExtResource("1_oa5wa")]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="."]
+shape = SubResource("BoxShape3D_6yytf")

@@ -1,21 +1,20 @@
 extends Panel
 
-@onready var world : PackedScene = preload("res://Scenes/world.tscn")
+@onready var world1 : PackedScene = preload("res://Scenes/world1.tscn")
 @onready var world2 : PackedScene = preload("res://Scenes/world2.tscn")
 @onready var main_3d: Node3D = $"../../../Main3D"
 @onready var main:Node3D = $"../../.."
 @onready var settings:VBoxContainer = $Settings
 @onready var main_menu:VBoxContainer = $MainMenu
+@onready var level_select:HFlowContainer = $LevelSelect
 @onready var credits:VBoxContainer = $Credits
 @onready var sound_effects: AudioStreamPlayer2D = $"../../../SoundEffects"
 
 
 func _on_new_game_pressed() -> void:
-	sound_effects.play_sound_effect_from_lib("select")
-	var world_instance = world2.instantiate()
-	main_3d.add_child(world_instance)
-	self.visible = false
-	main.in_main_menu = false
+	#sound_effects.play_sound_effect_from_lib("select")
+	level_select.visible = true
+	main_menu.visible = false
 
 
 func _on_settings_pressed() -> void:
@@ -54,3 +53,22 @@ func _on_close_credits_pressed() -> void:
 
 func _on_new_game_mouse_entered() -> void:
 	sound_effects.play_sound_effect_from_lib("hover")
+
+
+func _on_level_1_pressed() -> void:
+	var world_instance = world1.instantiate()
+	main_3d.add_child(world_instance)
+	main.in_main_menu = false
+	self.visible = false
+
+func _on_level_2_pressed() -> void:
+	var world_instance = world2.instantiate()
+	main_3d.add_child(world_instance)
+	main.in_main_menu = false
+	self.visible = false
+
+func _on_level_3_pressed() -> void:
+	var world_instance = world1.instantiate()
+	main_3d.add_child(world_instance)
+	main.in_main_menu = false
+	self.visible = false

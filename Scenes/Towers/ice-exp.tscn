@@ -1,0 +1,14 @@
+[gd_scene load_steps=4 format=3 uid="uid://4ucx7ithcbu0"]
+
+[ext_resource type="Script" path="res://Scripts/tower_exp.gd" id="1_qu0jn"]
+[ext_resource type="PackedScene" uid="uid://b6wr3rvslhryn" path="res://Scenes/Towers/ice.tscn" id="2_ot7p1"]
+[ext_resource type="PackedScene" uid="uid://cod885v35blai" path="res://Scenes/exp_bar_3d.tscn" id="3_qa0xx"]
+
+[node name="IceExp" type="StaticBody3D"]
+script = ExtResource("1_qu0jn")
+
+[node name="Ice" parent="." instance=ExtResource("2_ot7p1")]
+
+[node name="ExpBar3D" parent="." instance=ExtResource("3_qa0xx")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.45, 0, 0.37)
+centered = false

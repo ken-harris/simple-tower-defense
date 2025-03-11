@@ -1,14 +1,16 @@
-[gd_scene load_steps=4 format=3 uid="uid://dwwwhvpltuwp1"]
+[gd_scene load_steps=4 format=3 uid="uid://qgch8uukdij2"]
 
 [ext_resource type="Script" path="res://Scripts/tower_exp.gd" id="1_audpi"]
-[ext_resource type="PackedScene" uid="uid://bxf0imynqvdb8" path="res://Scenes/Towers/blaster.tscn" id="1_qo7vc"]
+[ext_resource type="PackedScene" uid="uid://8hpme1hf8mb3" path="res://Scenes/Towers/blaster.tscn" id="1_qo7vc"]
 [ext_resource type="PackedScene" uid="uid://cod885v35blai" path="res://Scenes/exp_bar_3d.tscn" id="2_70whq"]
 
-[node name="BlasterExp" type="StaticBody3D"]
+[node name="CannonExp" type="StaticBody3D"]
 script = ExtResource("1_audpi")
 
-[node name="Blaster" parent="." instance=ExtResource("1_qo7vc")]
-
 [node name="ExpBar3D" parent="." instance=ExtResource("2_70whq")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.45, 0, 0.37)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.668352, 0.220858, 0.0585512)
 centered = false
+
+[node name="Blaster" parent="." instance=ExtResource("1_qo7vc")]
+transform = Transform3D(-4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, 0, 0, 0)
+bullet_damage = 2

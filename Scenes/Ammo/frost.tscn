@@ -1,0 +1,37 @@
+[gd_scene load_steps=6 format=3 uid="uid://dj546dqpimsjg"]
+
+[ext_resource type="Script" path="res://Scripts/Ammo/frost.gd" id="1_h30c2"]
+
+[sub_resource type="SphereMesh" id="SphereMesh_gh80t"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_dep6t"]
+albedo_color = Color(0.62848, 0.719192, 0.984697, 1)
+emission_enabled = true
+emission = Color(0.601223, 0.601223, 0.601223, 1)
+emission_energy_multiplier = 0.38
+rim_enabled = true
+rim = 0.15
+rim_tint = 0.0
+
+[sub_resource type="SphereShape3D" id="SphereShape3D_u06pw"]
+
+[sub_resource type="SphereShape3D" id="SphereShape3D_3gw0w"]
+
+[node name="IceBall" type="CharacterBody3D"]
+transform = Transform3D(0.1, 0, 0, 0, 0.1, 0, 0, 0, 0.1, 0, 0, 0)
+script = ExtResource("1_h30c2")
+
+[node name="CSGMesh3D" type="CSGMesh3D" parent="."]
+mesh = SubResource("SphereMesh_gh80t")
+material = SubResource("StandardMaterial3D_dep6t")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="."]
+shape = SubResource("SphereShape3D_u06pw")
+
+[node name="Collision" type="Area3D" parent="."]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Collision"]
+transform = Transform3D(1.2, 0, 0, 0, 1.2, 0, 0, 0, 1.2, 0, 0, 0)
+shape = SubResource("SphereShape3D_3gw0w")
+
+[connection signal="body_entered" from="Collision" to="." method="_on_collision_body_entered"]

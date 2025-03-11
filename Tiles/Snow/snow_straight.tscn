@@ -1,0 +1,14 @@
+[gd_scene load_steps=3 format=3 uid="uid://nogj6iqui7hw"]
+
+[ext_resource type="PackedScene" uid="uid://dujm7aei8cg8d" path="res://Blender/Snow/Straight.glb" id="1_eekau"]
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_6yytf"]
+size = Vector3(1, 0.2, 1)
+
+[node name="Straight" type="StaticBody3D" groups=["Path"]]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.05, 0)
+shape = SubResource("BoxShape3D_6yytf")
+
+[node name="Straight2" parent="." instance=ExtResource("1_eekau")]

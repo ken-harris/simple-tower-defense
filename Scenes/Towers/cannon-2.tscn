@@ -1,0 +1,73 @@
+[gd_scene load_steps=15 format=3 uid="uid://cf4gmntq5pms2"]
+
+[ext_resource type="Script" path="res://Scripts/cannon.gd" id="1_2tqf4"]
+[ext_resource type="PackedScene" uid="uid://c78k83yis8e3r" path="res://Blender/Tower/Cannon.glb" id="1_j3hat"]
+[ext_resource type="PackedScene" uid="uid://d15civcg127cm" path="res://Scenes/PolyphonicAudioPlayer.tscn" id="2_jrbso"]
+[ext_resource type="Script" path="res://Scripts/Classes/AudioLibrary.gd" id="3_v3a8t"]
+[ext_resource type="Script" path="res://Scripts/Classes/SoundEffect.gd" id="4_1n7u6"]
+[ext_resource type="AudioStream" uid="uid://dici8f2topobt" path="res://Sounds/shoot-blaster.wav" id="5_pxylr"]
+[ext_resource type="AudioStream" uid="uid://cmwygx3c8ahqb" path="res://Sounds/level.wav" id="6_ncno3"]
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_y1146"]
+size = Vector3(1, 0.2, 1)
+
+[sub_resource type="SphereShape3D" id="SphereShape3D_5d3tp"]
+radius = 1.5
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_y7vb4"]
+transparency = 1
+blend_mode = 1
+albedo_color = Color(0.24, 1, 0.544, 0.0980392)
+
+[sub_resource type="SphereMesh" id="SphereMesh_fda7h"]
+material = SubResource("StandardMaterial3D_y7vb4")
+radius = 1.5
+height = 3.0
+
+[sub_resource type="Resource" id="Resource_cg51h"]
+script = ExtResource("4_1n7u6")
+tag = "shoot"
+stream = ExtResource("5_pxylr")
+
+[sub_resource type="Resource" id="Resource_re12c"]
+script = ExtResource("4_1n7u6")
+tag = "level"
+stream = ExtResource("6_ncno3")
+
+[sub_resource type="Resource" id="Resource_fnjwd"]
+script = ExtResource("3_v3a8t")
+sound_effects = Array[ExtResource("4_1n7u6")]([SubResource("Resource_cg51h"), SubResource("Resource_re12c")])
+
+[node name="Cannon2" type="StaticBody3D"]
+script = ExtResource("1_2tqf4")
+bullet_damage = 5
+
+[node name="WeaponMesh" parent="." instance=ExtResource("1_j3hat")]
+transform = Transform3D(-2.62268e-08, 0, -0.6, 0, 0.6, 0, 0.6, 0, -2.62268e-08, 0, 0, 0)
+
+[node name="Aim" type="Marker3D" parent="WeaponMesh"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.368125, 0.336472, 0)
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="."]
+shape = SubResource("BoxShape3D_y1146")
+
+[node name="MobDetector" type="Area3D" parent="."]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="MobDetector"]
+shape = SubResource("SphereShape3D_5d3tp")
+
+[node name="DisplayRange" type="MeshInstance3D" parent="MobDetector"]
+visible = false
+mesh = SubResource("SphereMesh_fda7h")
+skeleton = NodePath("")
+
+[node name="BulletContainer" type="Node" parent="."]
+
+[node name="ShotCooldown" type="Timer" parent="."]
+
+[node name="PolyphonicAudioPlayer" parent="." instance=ExtResource("2_jrbso")]
+audio_library = SubResource("Resource_fnjwd")
+
+[connection signal="body_entered" from="MobDetector" to="." method="_on_mob_detector_body_entered"]
+[connection signal="body_exited" from="MobDetector" to="." method="_on_mob_detector_body_exited"]
+[connection signal="timeout" from="ShotCooldown" to="." method="_on_shot_cooldown_timeout"]
