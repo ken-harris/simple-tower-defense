@@ -6,6 +6,7 @@ var money : int = 3000
 var level:int = 0
 var wave : int = 0
 var enemies_alive : int = 0
+var wave_enemies_remain : int = 0
 var wave_ongoing:bool = false
 var total_waves:int = 0
 var game_complete:bool = false

@@ -1,6 +1,5 @@
 extends World
 
-@onready var enemy : PackedScene = preload("res://Mobs/ufo.tscn")
 @onready var spawn_1 : Timer = $SpawnTimer
 @onready var spawn_2 : Timer = $SpawnTimer2
 @onready var path_1 : Path3D = $Path
@@ -11,6 +10,7 @@ var current_enemies_to_spawn_1 : int = 0
 var current_enemies_to_spawn_2 : int = 0
 
 func _ready() -> void:
+	super._ready()
 	Global.total_waves = len(waves)
 	Global.level = 2
 
@@ -20,6 +20,7 @@ func handle_spawn():
 	spawn_2.start()
 	current_enemies_to_spawn_1 = waves[Global.wave-1][0]
 	current_enemies_to_spawn_2 = waves[Global.wave-1][1]
+	Global.wave_enemies_remain = current_enemies_to_spawn_1 + current_enemies_to_spawn_2
 
 func _on_spawn_timer_timeout() -> void:
 	if current_enemies_to_spawn_1 > 0:
@@ -27,6 +28,7 @@ func _on_spawn_timer_timeout() -> void:
 		path_1.add_child(temp_enemy)
 		current_enemies_to_spawn_1 -= 1
 		Global.enemies_alive += 1
+		Global.wave_enemies_remain -= 1
 	if current_enemies_to_spawn_1 == 0:
 		spawn_1.stop()
 		if current_enemies_to_spawn_2 == 0:
@@ -38,6 +40,7 @@ func _on_spawn_timer_2_timeout() -> void:
 		path_2.add_child(temp_enemy)
 		current_enemies_to_spawn_2 -= 1
 		Global.enemies_alive += 1
+		Global.wave_enemies_remain -= 1
 	if current_enemies_to_spawn_2 == 0:
 		spawn_2.stop()
 		if current_enemies_to_spawn_1 == 0:

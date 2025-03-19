@@ -40,7 +40,7 @@ func handle_ui() -> void:
 	$CanvasLayer/UI/StatsPanel.visible = in_tower_stats
 	$CanvasLayer/UI/NextWave.visible = not Global.wave_ongoing and not Global.wave == Global.total_waves
 	$CanvasLayer/UI/EnemiesRemain.visible = not in_main_menu and not (not Global.wave_ongoing and Global.enemies_alive == 0)
-	$CanvasLayer/UI/EnemiesRemain.text = "Remain: " + str(Global.enemies_alive)
+	$CanvasLayer/UI/EnemiesRemain.text = "Remain: " + str(Global.wave_enemies_remain)
 	$CanvasLayer/UI/Gold.visible = not in_main_menu
 	$CanvasLayer/UI/Gold.text = "Gold: " + str(Global.money)
 	$CanvasLayer/UI/Wave.visible = not in_main_menu
